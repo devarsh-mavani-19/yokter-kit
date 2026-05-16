@@ -124,7 +124,7 @@ export const useForm = <
     });
     return initialValuesTransform
       ? initialValuesTransform(response.data)
-      : (response.data as unknown as TVariables);
+      : response.data;
   }, [id, resource, meta, initialValuesTransform, dataProvider]);
 
   const form = useReactHookForm<TVariables>({
@@ -181,7 +181,7 @@ export const useForm = <
         resetForm(undefined, keepStateOptions);
       }
     },
-    [action, id, fetchEditValues, resetForm, open, resource],
+    [action, id, fetchEditValues, resetForm, open, localize],
   );
 
   const handleMutationSuccess = useCallback(
