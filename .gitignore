@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.expo/
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Env
+.env
+.env.*
+
+# Logs
+*.log

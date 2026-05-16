@@ -1,0 +1,55 @@
+{
+  "name": "yokter-kit",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A UI/Form management library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"No test configured yet\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "ui",
+    "form",
+    "form-management",
+    "react-native"
+  ],
+  "author": "Devarsh Mavani <devarshmavani19@gmail.com> (devar.sh)",
+  "license": "MIT",
+  "dependencies": {
+    "change-case-all": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
+    "react": ">=18.0.0",
+    "react-hook-form": ">=7.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.11.1",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest": "^28.8.3",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^17.6.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.8.0"
+  }
+}
