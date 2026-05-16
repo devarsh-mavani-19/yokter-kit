@@ -127,7 +127,7 @@ describe("useCreate", () => {
     });
 
     expect(mockInvalidateResource).toHaveBeenCalledWith({
-      resource: "postsss",
+      resource: "posts",
       invalidateQueryFilters: undefined,
     });
   });
