@@ -127,7 +127,7 @@ describe("useCreate", () => {
     });
 
     expect(mockInvalidateResource).toHaveBeenCalledWith({
-      resource: "posts",
+      resource: "postsss",
       invalidateQueryFilters: undefined,
     });
   });
@@ -138,7 +138,8 @@ describe("useCreate", () => {
 
     const customFilters = { queryKey: ["custom"] };
     const { result } = renderHook(
-      () => useCreate({ resource: "posts", invalidateQueryFilters: customFilters }),
+      () =>
+        useCreate({ resource: "posts", invalidateQueryFilters: customFilters }),
       { wrapper: createWrapper() },
     );
 
@@ -182,7 +183,8 @@ describe("useCreate", () => {
     });
 
     const { result } = renderHook(
-      () => useCreate({ resource: "posts", successNotification: notificationFn }),
+      () =>
+        useCreate({ resource: "posts", successNotification: notificationFn }),
       { wrapper: createWrapper() },
     );
 
