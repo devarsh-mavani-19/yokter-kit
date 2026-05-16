@@ -1,3 +1,5 @@
+![PR Check](https://github.com/devarsh-mavani-19/yokter-kit/actions/workflows/pr-check.yml/badge.svg?event=pull_request)
+
 ![Yokter-Kit Poster](https://raw.githubusercontent.com/devarsh-mavani-19/yokter-kit/refs/heads/main/assets/poster.png)
 
 # Yokter Kit
