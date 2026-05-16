@@ -49,6 +49,7 @@ export default function App() {
       }}
       i18nProvider={i18nProvider}
     >
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
         {screen.name === "list" && (

@@ -11,6 +11,7 @@ export default tseslint.config(
   {
     ignores: [
       "eslint.config.js",
+      "jest.setup.js",
       "node_modules",
       "package-lock.json",
       "yarn.lock",
@@ -21,6 +22,8 @@ export default tseslint.config(
       "build",
       "coverage",
       "dist",
+      "**/metro.config.js",
+      "examples/*/**",
     ],
   },
   {
@@ -87,10 +90,7 @@ export default tseslint.config(
           allowNever: false,
         },
       ],
-      "@typescript-eslint/no-namespace": [
-        "error",
-        { allowDeclarations: true },
-      ],
+      "@typescript-eslint/no-namespace": ["error", { allowDeclarations: true }],
       "@typescript-eslint/no-deprecated": "warn",
       "@typescript-eslint/no-empty-function": [
         "error",
@@ -113,8 +113,14 @@ export default tseslint.config(
   })),
   {
     files: ["**/*.?(e2e-)spec.{ts,tsx,mtsx,d.ts}"],
-    plugins: { jest: jest },
+    plugins: { jest },
     ...jest.configs["flat/recommended"],
+    languageOptions: {
+      ...jest.configs["flat/recommended"].languageOptions,
+      globals: {
+        ...globals.jest,
+      },
+    },
     rules: {
       ...jest.configs["flat/recommended"].rules,
       "@typescript-eslint/unbound-method": "off",
