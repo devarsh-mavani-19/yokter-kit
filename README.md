@@ -1,3 +1,5 @@
+![Yokter-Kit Poster](https://raw.githubusercontent.com/devarsh-mavani-19/yokter-kit/refs/heads/main/assets/poster.png)
+
 # Yokter Kit
 
 A lightweight React Native library for form management and CRUD operations, built on top of [React Hook Form](https://react-hook-form.com/) and [TanStack Query](https://tanstack.com/query).
