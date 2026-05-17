@@ -4,18 +4,18 @@ import {
   KeepStateOptions,
   useForm as useReactHookForm,
 } from "react-hook-form";
-import { useCreate, UseCreateParams } from "./use-create";
-import { useUpdate, UseUpdateParams } from "./use-update";
-import { useNotification } from "./use-notification";
-import { BaseRecord, SingleResponse } from "../types/data-provider.type";
+import { useCreate, UseCreateParams } from "../../core/hooks/use-create";
+import { useUpdate, UseUpdateParams } from "../../core/hooks/use-update";
+import { useNotification } from "../../notification/hooks/use-notification";
+import { BaseRecord, SingleResponse } from "../../core/types/data-provider.type";
 import {
   InvalidateQueryFilters,
   UseMutationResult,
 } from "@tanstack/react-query";
-import { OpenNotificationParams } from "../types/notification.type";
-import { HttpError } from "../types/data.type";
-import { useYokterContext } from "../context/yokter.context";
-import { useLocalize } from "./use-localize";
+import { OpenNotificationParams } from "../../notification/types/notification.type";
+import { HttpError } from "../../core/types/data.type";
+import { useYokterContext } from "../../core/context/yokter.context";
+import { useLocalize } from "../../i18n/hooks/use-localize";
 import { sentenceCase } from "change-case-all";
 
 export type UseFormProps<

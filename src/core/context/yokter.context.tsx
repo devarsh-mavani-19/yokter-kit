@@ -1,9 +1,10 @@
 import React, { createContext, useContext } from "react";
-import { NotificationProvider } from "../types/notification.type";
-import { I18nProvider } from "../types/i18n.type";
+import { NotificationProvider } from "../../notification/types/notification.type";
+import { I18nProvider } from "../../i18n/types/i18n.type";
 import { DataProvider } from "../types/data-provider.type";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../clients/query.client";
+import { ThemeProvider } from "../../ui";
 
 export type YokterProviderProps<
   TLocale extends string = string,
@@ -44,7 +45,7 @@ export function YokterProvider<
           dataProvider,
         }}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </YokterContext.Provider>
     </QueryClientProvider>
   );

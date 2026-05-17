@@ -1,16 +1,13 @@
 import {
   View,
-  Text,
   FlatList,
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { useList } from "../../../../src/hooks/use-list";
-import { useDelete } from "../../../../src/hooks/use-delete";
 import { Post } from "../types";
-import { useLocalize } from "../../../../src/hooks/use-localize";
+import { Button, Typography, useButtonStylesResolver, useDelete, useList, useLocalize } from "yokter-kit";
 
 type Props = {
   onNavigateCreate: () => void;
@@ -64,10 +61,7 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Posts</Text>
-        <TouchableOpacity style={styles.createBtn} onPress={onNavigateCreate}>
-          <Text style={styles.createBtnText}>+ {localize("create")}</Text>
-        </TouchableOpacity>
+        <Typography variant="h3">Posts</Typography>
       </View>
       <FlatList
         data={data?.data}
@@ -78,19 +72,24 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
               style={styles.itemContent}
               onPress={() => onNavigateEdit(String(item.id))}
             >
-              <Text style={styles.itemTitle}>{item.title}</Text>
-              <Text style={styles.itemStatus}>{item.status}</Text>
+              <Typography variant="caption1">{item.title}</Typography>
+              <Typography variant="caption2">{item.status}</Typography>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteBtn}
+            <Button
+              size="sm"
+              variant="solid"
+              danger
               onPress={() => handleDelete(String(item.id))}
             >
-              <Text style={styles.deleteBtnText}>Delete</Text>
-            </TouchableOpacity>
+              Delete
+            </Button>
           </View>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
+      <Button variant="outlined" onPress={() => onNavigateCreate()}>
+        {localize("create")}
+      </Button>
     </View>
   );
 }
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 6,
   },
-  createBtnText: { color: "#fff", fontWeight: "600" },
+  createBtnText: { color: "#007AFF", fontWeight: "600" },
   item: {
     paddingVertical: 12,
     flexDirection: "row",

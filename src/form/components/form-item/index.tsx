@@ -7,14 +7,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { View } from "react-native";
-import { useLocalize } from "../../hooks/use-localize";
-
-export type FormInputFieldProps<T> = {
-  onBlur?: () => void;
-  onChange?: (value: T) => void;
-  value?: T;
-  errorMessage?: string;
-};
+import { useLocalize } from "../../../i18n/hooks/use-localize";
+import { FormInputFieldProps } from "../../types/form.type";
 
 export type FormItemProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;

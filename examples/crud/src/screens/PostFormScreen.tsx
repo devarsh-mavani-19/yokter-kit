@@ -4,12 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator,
 } from "react-native";
-import { useForm } from "../../../../src/hooks/use-form";
-import { Form } from "../../../../src/components/form";
-import { FormItem, FormInputFieldProps } from "../../../../src/components/form-item";
 import { Post, PostFormValues } from "../types";
+import { Button, Form, FormInputFieldProps, FormItem, Input, Typography, useForm } from "yokter-kit";
 
 type Props = {
   action: "create" | "edit";
@@ -33,7 +30,11 @@ function FormTextInput({
   return (
     <View>
       <TextInput
-        style={[styles.input, multiline && styles.textArea, errorMessage && styles.inputError]}
+        style={[
+          styles.input,
+          multiline && styles.textArea,
+          errorMessage && styles.inputError,
+        ]}
         value={value ?? ""}
         onChangeText={onChange}
         onBlur={onBlur}
@@ -46,10 +47,7 @@ function FormTextInput({
   );
 }
 
-function StatusPicker({
-  value,
-  onChange,
-}: FormInputFieldProps<string>) {
+function StatusPicker({ value, onChange }: FormInputFieldProps<string>) {
   return (
     <View style={styles.statusRow}>
       {(["draft", "published", "rejected"] as const).map((s) => (
@@ -58,7 +56,12 @@ function StatusPicker({
           style={[styles.statusBtn, value === s && styles.statusBtnActive]}
           onPress={() => onChange?.(s)}
         >
-          <Text style={[styles.statusBtnText, value === s && styles.statusBtnTextActive]}>
+          <Text
+            style={[
+              styles.statusBtnText,
+              value === s && styles.statusBtnTextActive,
+            ]}
+          >
             {s}
           </Text>
         </TouchableOpacity>
@@ -86,7 +89,7 @@ export function PostFormScreen({ action, id, onBack }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack}>
-          <Text style={styles.backBtn}>← Back</Text>
+          <Typography variant="h5">← Back</Typography>
         </TouchableOpacity>
         <Text style={styles.title}>
           {action === "create" ? "Create Post" : "Edit Post"}
@@ -95,48 +98,43 @@ export function PostFormScreen({ action, id, onBack }: Props) {
 
       <Form form={form}>
         <View style={styles.field}>
-          <Text style={styles.label}>Title</Text>
+          <Typography style={styles.label}>Title</Typography>
           <FormItem<PostFormValues>
             name="title"
             label="Title"
             rules={{ required: true }}
           >
-            <FormTextInput placeholder="Enter title" />
+            <Input placeholder="Enter title" />
+            {/* <FormTextInput placeholder="Enter title" /> */}
           </FormItem>
         </View>
 
         <View style={styles.field}>
-          <Text style={styles.label}>Content</Text>
+          <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>
             name="content"
             label="Content"
             rules={{ required: true }}
           >
-            <FormTextInput placeholder="Enter content" multiline numberOfLines={4} />
+            <FormTextInput
+              placeholder="Enter content"
+              multiline
+              numberOfLines={4}
+            />
           </FormItem>
         </View>
 
         <View style={styles.field}>
-          <Text style={styles.label}>Status</Text>
+          <Typography style={styles.label}>Status</Typography>
           <FormItem<PostFormValues> name="status" label="Status">
             <StatusPicker />
           </FormItem>
         </View>
       </Form>
 
-      <TouchableOpacity
-        style={[styles.submitBtn, saveButtonProps.disabled && styles.submitBtnDisabled]}
-        onPress={saveButtonProps.onPress}
-        disabled={saveButtonProps.disabled}
-      >
-        {saveButtonProps.loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.submitBtnText}>
-            {action === "create" ? "Create" : "Save"}
-          </Text>
-        )}
-      </TouchableOpacity>
+      <Button {...saveButtonProps}>
+        {action === "create" ? "Create" : "Save"}
+      </Button>
     </View>
   );
 }

@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "yokter-kit": "../../",
     "@tanstack/react-query": "^5.100.10",
     "axios": "^1.16.1",
     "change-case-all": "^2.1.0",

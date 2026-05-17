@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from "@testing-library/react-native";
 import { useForm } from "./use-form";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DataProvider } from "../types/data-provider.type";
+import { DataProvider } from "../../core/types/data-provider.type";
 
 const mockDataProvider: DataProvider = {
   getList: jest.fn(),
@@ -16,7 +16,7 @@ const mockDataProvider: DataProvider = {
 const mockInvalidateResource = jest.fn();
 const mockOpen = jest.fn();
 
-jest.mock("../context/yokter.context", () => ({
+jest.mock("../../core/context/yokter.context", () => ({
   useYokterContext: () => ({
     dataProvider: mockDataProvider,
     notificationProvider: { open: mockOpen, close: jest.fn() },
@@ -28,7 +28,7 @@ jest.mock("../context/yokter.context", () => ({
   }),
 }));
 
-jest.mock("./use-invalidate", () => ({
+jest.mock("../../core/hooks/use-invalidate", () => ({
   useInvalidate: () => ({
     invalidateResource: mockInvalidateResource,
     invalidateAll: jest.fn(),

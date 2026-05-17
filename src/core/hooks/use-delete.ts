@@ -1,27 +1,25 @@
 import {
   InvalidateQueryFilters,
-  useMutation,
   UseMutationOptions,
+  useMutation,
 } from "@tanstack/react-query";
 import { useInvalidate } from "./use-invalidate";
-import { useNotification } from "./use-notification";
+import { useNotification } from "../../notification/hooks/use-notification";
 import { BaseRecord, SingleResponse } from "../types/data-provider.type";
+import { OpenNotificationParams } from "../../notification/types/notification.type";
 import { HttpError } from "../types/data.type";
-import { OpenNotificationParams } from "../types/notification.type";
 import { getQueryKey } from "../utils/query-key.util";
 import { useYokterContext } from "../context/yokter.context";
 
-export type UseUpdateParams<TVariables = object> = {
+export type UseDeleteParams = {
   resource?: string;
   id?: string;
-  variables?: TVariables;
   meta?: { [k: string]: unknown };
 };
 
-export type UseUpdateProps<
+export type UseDeleteProps<
   TData extends BaseRecord = BaseRecord,
-  TError extends HttpError = HttpError,
-  TVariables = TData,
+  TVariables = object,
 > = {
   resource?: string;
   id?: string;
@@ -38,71 +36,49 @@ export type UseUpdateProps<
     | OpenNotificationParams
     | false
     | ((
-        error?: TError,
+        error?: HttpError,
         values?: TVariables,
         resource?: string,
       ) => OpenNotificationParams | false | undefined);
   mutationOptions?: Omit<
-    UseMutationOptions<
-      SingleResponse<TData>,
-      TError,
-      UseUpdateParams<TVariables>
-    >,
+    UseMutationOptions<SingleResponse<unknown>, HttpError, UseDeleteParams>,
     "mutationFn" | "mutationKey"
   >;
 };
 
-export const useUpdate = <
-  TData extends BaseRecord = BaseRecord,
-  TError extends HttpError = HttpError,
-  TVariables = TData,
->({
+export const useDelete = ({
   resource: resourceFromProps,
   id: idFromProps,
   invalidateQueryFilters,
   successNotification,
   errorNotification,
   mutationOptions,
-}: UseUpdateProps<TData, TError, TVariables> = {}) => {
+}: UseDeleteProps = {}) => {
   const { invalidateResource } = useInvalidate();
   const { dataProvider } = useYokterContext();
   const { open } = useNotification();
 
-  return useMutation<
-    SingleResponse<TData>,
-    TError,
-    UseUpdateParams<TVariables>
-  >({
+  return useMutation<SingleResponse<unknown>, HttpError, UseDeleteParams>({
     ...mutationOptions,
     mutationKey: resourceFromProps
       ? getQueryKey({
           resource: resourceFromProps,
           id: idFromProps,
-          action: "update",
+          action: "delete",
         })
-      : ["update"],
-    mutationFn: ({
-      resource = resourceFromProps,
-      id = idFromProps,
-      variables,
-      meta,
-    }) => {
+      : ["delete"],
+    mutationFn: ({ resource = resourceFromProps, id = idFromProps, meta }) => {
       if (!resource) {
-        throw new Error("[useUpdate]: `resource` is not defined");
+        throw new Error("[useDelete]: `resource` is not defined");
       }
       if (!id) {
-        throw new Error("[useUpdate]: `id` is not provided");
+        throw new Error("[useDelete]: `id` is not provided");
       }
-      return dataProvider.update<TData, TVariables>({
-        resource,
-        id,
-        variables,
-        meta,
-      });
+      return dataProvider.deleteOne({ resource, id, meta });
     },
     onSuccess: (
       data,
-      { resource = resourceFromProps, id = idFromProps, variables },
+      { resource = resourceFromProps, id = idFromProps },
       onMutateResult,
       context,
     ) => {
@@ -116,41 +92,31 @@ export const useUpdate = <
 
       const notificationConfig =
         typeof successNotification === "function"
-          ? successNotification(data.data, variables, resourceFromProps)
+          ? successNotification(data, undefined, resourceFromProps)
           : successNotification;
 
       if (notificationConfig) {
         open?.(notificationConfig);
       }
 
-      mutationOptions?.onSuccess?.(
-        data,
-        { resource, id, variables },
-        onMutateResult,
-        context,
-      );
+      mutationOptions?.onSuccess?.(data, { resource, id }, onMutateResult, context);
     },
     onError: (
-      error,
-      { resource = resourceFromProps, id = idFromProps, variables },
+      error: HttpError,
+      { resource = resourceFromProps, id = idFromProps },
       onMutateResult,
       context,
     ) => {
       const notificationConfig =
         typeof errorNotification === "function"
-          ? errorNotification(error, variables, resourceFromProps)
+          ? errorNotification(error, undefined, resourceFromProps)
           : errorNotification;
 
       if (notificationConfig) {
         open?.(notificationConfig);
       }
 
-      mutationOptions?.onError?.(
-        error,
-        { resource, id, variables },
-        onMutateResult,
-        context,
-      );
+      mutationOptions?.onError?.(error, { resource, id }, onMutateResult, context);
     },
   });
 };

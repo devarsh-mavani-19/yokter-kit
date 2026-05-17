@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useYokterContext } from "../context/yokter.context";
+import { useYokterContext } from "../../core/context/yokter.context";
 
 /**
  * If you need to translate the texts in your own components, yokter provides the `useLocalize` hook.

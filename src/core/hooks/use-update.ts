@@ -1,28 +1,30 @@
 import {
   InvalidateQueryFilters,
-  UseMutationOptions,
   useMutation,
+  UseMutationOptions,
 } from "@tanstack/react-query";
 import { useInvalidate } from "./use-invalidate";
+import { useNotification } from "../../notification/hooks/use-notification";
 import { BaseRecord, SingleResponse } from "../types/data-provider.type";
 import { HttpError } from "../types/data.type";
-import { OpenNotificationParams } from "../types/notification.type";
-import { useNotification } from "./use-notification";
+import { OpenNotificationParams } from "../../notification/types/notification.type";
 import { getQueryKey } from "../utils/query-key.util";
 import { useYokterContext } from "../context/yokter.context";
 
-export type UseCreateParams<TVariables = object> = {
+export type UseUpdateParams<TVariables = object> = {
   resource?: string;
+  id?: string;
   variables?: TVariables;
   meta?: { [k: string]: unknown };
 };
 
-export type UseCreateProps<
+export type UseUpdateProps<
   TData extends BaseRecord = BaseRecord,
   TError extends HttpError = HttpError,
   TVariables = TData,
 > = {
   resource?: string;
+  id?: string;
   invalidateQueryFilters?: InvalidateQueryFilters;
   successNotification?:
     | OpenNotificationParams
@@ -44,61 +46,74 @@ export type UseCreateProps<
     UseMutationOptions<
       SingleResponse<TData>,
       TError,
-      UseCreateParams<TVariables>
+      UseUpdateParams<TVariables>
     >,
     "mutationFn" | "mutationKey"
   >;
 };
 
-export const useCreate = <
+export const useUpdate = <
   TData extends BaseRecord = BaseRecord,
   TError extends HttpError = HttpError,
   TVariables = TData,
 >({
   resource: resourceFromProps,
+  id: idFromProps,
   invalidateQueryFilters,
   successNotification,
   errorNotification,
   mutationOptions,
-}: UseCreateProps<TData, TError, TVariables> = {}) => {
+}: UseUpdateProps<TData, TError, TVariables> = {}) => {
   const { invalidateResource } = useInvalidate();
-  const { open } = useNotification();
   const { dataProvider } = useYokterContext();
+  const { open } = useNotification();
 
   return useMutation<
     SingleResponse<TData>,
     TError,
-    UseCreateParams<TVariables>
+    UseUpdateParams<TVariables>
   >({
     ...mutationOptions,
     mutationKey: resourceFromProps
-      ? getQueryKey({ resource: resourceFromProps, action: "create" })
-      : ["create"],
-    mutationFn: ({ resource = resourceFromProps, variables, meta }) => {
+      ? getQueryKey({
+          resource: resourceFromProps,
+          id: idFromProps,
+          action: "update",
+        })
+      : ["update"],
+    mutationFn: ({
+      resource = resourceFromProps,
+      id = idFromProps,
+      variables,
+      meta,
+    }) => {
       if (!resource) {
-        throw new Error("[useCreate]: `resource` is not defined");
+        throw new Error("[useUpdate]: `resource` is not defined");
       }
-      if (!variables) {
-        throw new Error("[useCreate]: `variables` is not provided");
+      if (!id) {
+        throw new Error("[useUpdate]: `id` is not provided");
       }
-      return dataProvider.create<TData, TVariables>({
+      return dataProvider.update<TData, TVariables>({
         resource,
+        id,
         variables,
         meta,
       });
     },
     onSuccess: (
       data,
-      { resource = resourceFromProps, variables },
+      { resource = resourceFromProps, id = idFromProps, variables },
       onMutateResult,
       context,
     ) => {
       if (resource) {
         invalidateResource({
           resource,
+          id,
           invalidateQueryFilters,
         });
       }
+
       const notificationConfig =
         typeof successNotification === "function"
           ? successNotification(data.data, variables, resourceFromProps)
@@ -110,14 +125,14 @@ export const useCreate = <
 
       mutationOptions?.onSuccess?.(
         data,
-        { resource, variables },
+        { resource, id, variables },
         onMutateResult,
         context,
       );
     },
     onError: (
       error,
-      { resource = resourceFromProps, variables },
+      { resource = resourceFromProps, id = idFromProps, variables },
       onMutateResult,
       context,
     ) => {
@@ -132,7 +147,7 @@ export const useCreate = <
 
       mutationOptions?.onError?.(
         error,
-        { resource, variables },
+        { resource, id, variables },
         onMutateResult,
         context,
       );

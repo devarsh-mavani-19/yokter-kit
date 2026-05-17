@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useYokterContext } from "../context/yokter.context";
+import { useYokterContext } from "../../core/context/yokter.context";
 import {
   INotificationContext,
   OpenNotificationParams,

@@ -10,7 +10,7 @@ let mockI18nProvider: { localize: jest.Mock; changeLocale: jest.Mock; getLocale:
   getLocale: jest.fn(),
 };
 
-jest.mock("../context/yokter.context", () => ({
+jest.mock("../../core/context/yokter.context", () => ({
   useYokterContext: () => ({
     i18nProvider: mockI18nProvider,
     dataProvider: {},
