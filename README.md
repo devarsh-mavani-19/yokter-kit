@@ -263,6 +263,12 @@ yarn install
 yarn start
 ```
 
+## Future Plans
+
+1. **Auth Support** - Built-in authentication provider with login, logout, session management, and route protection
+2. **UI Library Support** - Expanding the component library with more form controls, layout primitives, and data display components
+3. **Supabase Support** - First-party Supabase data provider for seamless integration with Supabase backends
+
 ## License
 
 MIT
