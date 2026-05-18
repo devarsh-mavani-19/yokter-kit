@@ -1,4 +1,4 @@
-import { ButtonSize, CheckboxSize, InputSize, RadioSize, SwitchSize } from "./types";
+import { ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, RadioSize, SegmentedControlSize, SliderSize, SwitchSize, TextAreaSize } from "./types";
 
 export const buttonSizeConfig: Record<ButtonSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number }> = {
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 6 },
@@ -28,4 +28,34 @@ export const switchSizeConfig: Record<SwitchSize, { track: { width: number; heig
   sm: { track: { width: 28, height: 16 }, thumb: 12, gap: 6, labelFontSize: 13 },
   md: { track: { width: 36, height: 20 }, thumb: 16, gap: 8, labelFontSize: 15 },
   lg: { track: { width: 44, height: 24 }, thumb: 20, gap: 10, labelFontSize: 17 },
+};
+
+export const dropdownSizeConfig: Record<DropdownSize, { triggerHeight: number; paddingHorizontal: number; fontSize: number; borderRadius: number; itemHeight: number; maxPanelHeight: number; chevronSize: number }> = {
+  sm: { triggerHeight: 32, paddingHorizontal: 10, fontSize: 13, borderRadius: 6, itemHeight: 32, maxPanelHeight: 192, chevronSize: 14 },
+  md: { triggerHeight: 40, paddingHorizontal: 12, fontSize: 15, borderRadius: 8, itemHeight: 40, maxPanelHeight: 240, chevronSize: 16 },
+  lg: { triggerHeight: 48, paddingHorizontal: 14, fontSize: 17, borderRadius: 10, itemHeight: 48, maxPanelHeight: 288, chevronSize: 18 },
+};
+
+export const textAreaSizeConfig: Record<TextAreaSize, { minHeight: number; paddingHorizontal: number; paddingVertical: number; borderRadius: number; fontSize: number; lineHeight: number }> = {
+  sm: { minHeight: 64, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 6, fontSize: 13, lineHeight: 18 },
+  md: { minHeight: 80, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, fontSize: 15, lineHeight: 22 },
+  lg: { minHeight: 96, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 10, fontSize: 17, lineHeight: 26 },
+};
+
+export const otpInputSizeConfig: Record<OtpInputSize, { cellSize: number; fontSize: number; borderRadius: number; gap: number }> = {
+  sm: { cellSize: 36, fontSize: 16, borderRadius: 6, gap: 8 },
+  md: { cellSize: 44, fontSize: 20, borderRadius: 8, gap: 10 },
+  lg: { cellSize: 52, fontSize: 24, borderRadius: 10, gap: 12 },
+};
+
+export const sliderSizeConfig: Record<SliderSize, { trackHeight: number; thumbSize: number }> = {
+  sm: { trackHeight: 3, thumbSize: 16 },
+  md: { trackHeight: 4, thumbSize: 20 },
+  lg: { trackHeight: 5, thumbSize: 24 },
+};
+
+export const segmentedControlSizeConfig: Record<SegmentedControlSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number; innerBorderRadius: number; padding: number }> = {
+  sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 8, innerBorderRadius: 6, padding: 2 },
+  md: { height: 40, paddingHorizontal: 16, fontSize: 15, borderRadius: 10, innerBorderRadius: 8, padding: 3 },
+  lg: { height: 48, paddingHorizontal: 20, fontSize: 17, borderRadius: 12, innerBorderRadius: 10, padding: 4 },
 };

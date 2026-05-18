@@ -42,11 +42,48 @@ export type {
   UseGetSwitchStylesProp,
   UseGetSwitchStylesReturn,
 } from "./components/switch/use-get-switch-styles";
+export { Dropdown } from "./components/dropdown";
+export type { DropdownProps, DropdownSingleProps, DropdownMultiProps, DropdownOption } from "./components/dropdown";
+export { useGetDropdownStyles } from "./components/dropdown/use-get-dropdown-styles";
+export type {
+  UseGetDropdownStylesProp,
+  UseGetDropdownStylesReturn,
+} from "./components/dropdown/use-get-dropdown-styles";
+export { AutoComplete } from "./components/autocomplete";
+export type { AutoCompleteProps, AutoCompleteOption } from "./components/autocomplete";
+export { OtpInput } from "./components/otp-input";
+export type { OtpInputProps } from "./components/otp-input";
+export { useGetOtpInputStyles } from "./components/otp-input/use-get-otp-input-styles";
+export type {
+  UseGetOtpInputStylesProp,
+  UseGetOtpInputStylesReturn,
+} from "./components/otp-input/use-get-otp-input-styles";
+export { Slider } from "./components/slider";
+export type { SliderProps } from "./components/slider";
+export { useGetSliderStyles } from "./components/slider/use-get-slider-styles";
+export type {
+  UseGetSliderStylesProp,
+  UseGetSliderStylesReturn,
+} from "./components/slider/use-get-slider-styles";
+export { SegmentedControl } from "./components/segmented-control";
+export type { SegmentedControlProps, SegmentedControlSingleProps, SegmentedControlMultiProps, SegmentedControlOption } from "./components/segmented-control";
+export { useGetSegmentedControlStyles } from "./components/segmented-control/use-get-segmented-control-styles";
+export type {
+  UseGetSegmentedControlStylesProp,
+  UseGetSegmentedControlStylesReturn,
+} from "./components/segmented-control/use-get-segmented-control-styles";
 export { useGetInputStyles } from "./components/input/use-get-input-styles";
 export type {
   UseGetInputStylesProp,
   UseGetInputStylesReturn,
 } from "./components/input/use-get-input-styles";
+export { TextArea } from "./components/textarea";
+export type { TextAreaProps } from "./components/textarea";
+export { useGetTextAreaStyles } from "./components/textarea/use-get-textarea-styles";
+export type {
+  UseGetTextAreaStylesProp,
+  UseGetTextAreaStylesReturn,
+} from "./components/textarea/use-get-textarea-styles";
 
 // Theme creation
 export { createTheme, defaultTheme } from "./createTheme";
@@ -93,6 +130,11 @@ export type {
   CheckboxState,
   RadioSize,
   SwitchSize,
+  DropdownSize,
+  TextAreaSize,
+  OtpInputSize,
+  SliderSize,
+  SegmentedControlSize,
   DeepPartial,
   FormInputFieldProps,
 } from "./types";

@@ -140,7 +140,39 @@ export type ColorSemanticToken =
   | "switchTrackDisabled"
   | "switchThumbDisabled"
   | "switchLabel"
-  | "switchLabelDisabled";
+  | "switchLabelDisabled"
+  // Dropdown
+  | "dropdownTriggerBackground"
+  | "dropdownTriggerForeground"
+  | "dropdownTriggerBorder"
+  | "dropdownTriggerBorderFocus"
+  | "dropdownTriggerPlaceholder"
+  | "dropdownTriggerDisabledBackground"
+  | "dropdownTriggerDisabledForeground"
+  | "dropdownTriggerDisabledBorder"
+  | "dropdownPanelBackground"
+  | "dropdownPanelBorder"
+  | "dropdownItemForeground"
+  | "dropdownItemBackgroundActive"
+  | "dropdownItemForegroundActive"
+  | "dropdownItemBackgroundHover"
+  // Slider
+  | "sliderTrack"
+  | "sliderFill"
+  | "sliderThumb"
+  | "sliderThumbBorder"
+  | "sliderTrackDisabled"
+  | "sliderFillDisabled"
+  | "sliderThumbDisabled"
+  // SegmentedControl
+  | "segmentedBackground"
+  | "segmentedItemBackground"
+  | "segmentedItemBackgroundActive"
+  | "segmentedItemForeground"
+  | "segmentedItemForegroundActive"
+  | "segmentedBorder"
+  | "segmentedDisabledBackground"
+  | "segmentedDisabledForeground";
 
 export type TypographyVariant =
   | "display1"
@@ -191,6 +223,16 @@ export type CheckboxState = "unchecked" | "checked" | "indeterminate";
 export type RadioSize = "sm" | "md" | "lg";
 
 export type SwitchSize = "sm" | "md" | "lg";
+
+export type DropdownSize = "sm" | "md" | "lg";
+
+export type TextAreaSize = "sm" | "md" | "lg";
+
+export type OtpInputSize = "sm" | "md" | "lg";
+
+export type SliderSize = "sm" | "md" | "lg";
+
+export type SegmentedControlSize = "sm" | "md" | "lg";
 
 export type ButtonStyle = {
   height: number;

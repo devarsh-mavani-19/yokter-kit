@@ -7,19 +7,27 @@ import {
 } from "react-native";
 import { Post, PostFormValues } from "../types";
 import {
+  AutoComplete,
+  AutoCompleteOption,
   Button,
   Checkbox,
+  Dropdown,
   Form,
   FormInputFieldProps,
   FormItem,
   Input,
   InputNumber,
+  OtpInput,
+  RadioGroup,
+  SegmentedControl,
+  Slider,
   Switch,
+  TextArea,
   Typography,
   useForm,
   useGetLocale,
 } from "yokter-kit";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 type Props = {
   action: "create" | "edit";
@@ -85,7 +93,46 @@ function StatusPicker({ value, onChange }: FormInputFieldProps<string>) {
 
 export function PostFormScreen({ action, id, onBack }: Props) {
   const getLocale = useGetLocale();
+  const [fruit, setFruit] = useState<string>();
+  const [otp, setOtp] = useState<string>();
+  const [sliderVal, setSliderVal] = useState<number>();
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [radio2, setRadio2] = useState<"apple" | "banana" | undefined>();
+  const [radio, setRadio] =
+    useState<
+      (
+        | "apple"
+        | "banana"
+        | "cherry"
+        | "mango"
+        | "grape"
+        | "orange"
+        | "papaya"
+        | "pineapple"
+        | "watermelon"
+        | "kiwi"
+        | "strawberry"
+        | "blueberry"
+      )[]
+    >();
+
+  const fruitOptions: AutoCompleteOption[] = useMemo(() => {
+    if (!fruit) return [];
+    return [
+      {
+        label: `${fruit}a`,
+        value: `${fruit}a`,
+      },
+      {
+        label: `${fruit}ab`,
+        value: `${fruit}ab`,
+      },
+      {
+        label: `${fruit}abc`,
+        value: `${fruit}abc`,
+      },
+    ];
+  }, [fruit]);
 
   const { form, saveButtonProps } = useForm<Post, PostFormValues>({
     action,
@@ -111,7 +158,39 @@ export function PostFormScreen({ action, id, onBack }: Props) {
           {action === "create" ? "Create Post" : "Edit Post"}
         </Text>
       </View>
-
+      <Dropdown<
+        | "apple"
+        | "banana"
+        | "cherry"
+        | "mango"
+        | "grape"
+        | "orange"
+        | "papaya"
+        | "pineapple"
+        | "watermelon"
+        | "kiwi"
+        | "strawberry"
+        | "blueberry"
+      >
+        clearable
+        mode="multi"
+        options={[
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Cherry", value: "cherry" },
+          { label: "Mango", value: "mango" },
+          { label: "Grape", value: "grape" },
+          { label: "Orange", value: "orange" },
+          { label: "Papaya", value: "papaya" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Watermelon", value: "watermelon" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Blueberry", value: "blueberry" },
+        ]}
+        value={radio}
+        onChange={(value) => setRadio(value)}
+      />
       <Form form={form}>
         <View style={styles.field}>
           <Typography style={styles.label}>Title</Typography>
@@ -125,6 +204,25 @@ export function PostFormScreen({ action, id, onBack }: Props) {
           </FormItem>
         </View>
         <Checkbox value={isFocus} onChange={() => setIsFocus(!isFocus)} />
+        <View style={{ margin: 8 }}>
+          <OtpInput value={otp} onChange={(value) => setOtp(value)} />
+        </View>
+        <View style={{ margin: 8 }}>
+          <Slider
+            haptic
+            step={5}
+            value={sliderVal}
+            onChange={(val) => setSliderVal(val)}
+          />
+        </View>
+        <RadioGroup
+          options={[
+            { label: "Apple", value: "apple" },
+            { label: "Banana", value: "banana" },
+          ]}
+          value={radio2}
+          onChange={(value) => setRadio2(value)}
+        />
         <View style={styles.field}>
           <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>
@@ -132,18 +230,26 @@ export function PostFormScreen({ action, id, onBack }: Props) {
             label="Content"
             rules={{ required: true }}
           >
-            <FormTextInput
-              placeholder="Enter content"
-              multiline
-              numberOfLines={4}
-            />
+            <TextArea placeholder="Enter content" />
           </FormItem>
         </View>
+
+        <AutoComplete
+          options={fruitOptions}
+          onChange={(value) => setFruit(value)}
+          value={fruit}
+        />
 
         <View style={styles.field}>
           <Typography style={styles.label}>Status</Typography>
           <FormItem<PostFormValues> name="status" label="Status">
-            <StatusPicker />
+            <SegmentedControl<"draft" | "published" | "rejected">
+              options={[
+                { label: "Draft", value: "draft" },
+                { label: "Published", value: "published" },
+                { label: "Rejected", value: "rejected" },
+              ]}
+            />
           </FormItem>
         </View>
       </Form>
