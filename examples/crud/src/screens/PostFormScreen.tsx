@@ -8,6 +8,7 @@ import {
 import { Post, PostFormValues } from "../types";
 import {
   Button,
+  Checkbox,
   Form,
   FormInputFieldProps,
   FormItem,
@@ -123,7 +124,7 @@ export function PostFormScreen({ action, id, onBack }: Props) {
             {/* <Input placeholder="Enter title" /> */}
           </FormItem>
         </View>
-        <Switch />
+        <Checkbox value={isFocus} onChange={() => setIsFocus(!isFocus)} />
         <View style={styles.field}>
           <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>
