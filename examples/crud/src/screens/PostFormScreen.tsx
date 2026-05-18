@@ -6,7 +6,19 @@ import {
   StyleSheet,
 } from "react-native";
 import { Post, PostFormValues } from "../types";
-import { Button, Form, FormInputFieldProps, FormItem, Input, Typography, useForm } from "yokter-kit";
+import {
+  Button,
+  Form,
+  FormInputFieldProps,
+  FormItem,
+  Input,
+  InputNumber,
+  Switch,
+  Typography,
+  useForm,
+  useGetLocale,
+} from "yokter-kit";
+import { useState } from "react";
 
 type Props = {
   action: "create" | "edit";
@@ -71,6 +83,9 @@ function StatusPicker({ value, onChange }: FormInputFieldProps<string>) {
 }
 
 export function PostFormScreen({ action, id, onBack }: Props) {
+  const getLocale = useGetLocale();
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+
   const { form, saveButtonProps } = useForm<Post, PostFormValues>({
     action,
     resource: "posts",
@@ -104,11 +119,11 @@ export function PostFormScreen({ action, id, onBack }: Props) {
             label="Title"
             rules={{ required: true }}
           >
-            <Input placeholder="Enter title" />
-            {/* <FormTextInput placeholder="Enter title" /> */}
+            <InputNumber placeholder="Enter Number" locale={getLocale()} />
+            {/* <Input placeholder="Enter title" /> */}
           </FormItem>
         </View>
-
+        <Switch />
         <View style={styles.field}>
           <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>

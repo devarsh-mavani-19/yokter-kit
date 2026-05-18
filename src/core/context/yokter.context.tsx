@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { NotificationProvider } from "../../notification/types/notification.type";
 import { I18nProvider } from "../../i18n/types/i18n.type";
+import { I18nContextProvider } from "../../i18n/context/i18n.context";
 import { DataProvider } from "../types/data-provider.type";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../clients/query.client";
@@ -16,12 +17,8 @@ export type YokterProviderProps<
   children: React.ReactNode;
 };
 
-export type YokterContextType<
-  TLocale extends string = string,
-  TKey extends string = string,
-> = {
+export type YokterContextType = {
   notificationProvider?: NotificationProvider;
-  i18nProvider?: I18nProvider<TLocale, TKey>;
   dataProvider: DataProvider;
 };
 
@@ -41,11 +38,14 @@ export function YokterProvider<
       <YokterContext.Provider
         value={{
           notificationProvider,
-          i18nProvider: i18nProvider as I18nProvider | undefined,
           dataProvider,
         }}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <I18nContextProvider
+          i18nProvider={i18nProvider as I18nProvider | undefined}
+        >
+          <ThemeProvider>{children}</ThemeProvider>
+        </I18nContextProvider>
       </YokterContext.Provider>
     </QueryClientProvider>
   );

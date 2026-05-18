@@ -1,32 +1,31 @@
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { YokterProvider } from "../../src/context/yokter.context";
 import { dataProvider } from "./src/data-provider";
 import { PostListScreen } from "./src/screens/PostListScreen";
 import { PostFormScreen } from "./src/screens/PostFormScreen";
-import { I18nProvider } from "../../src/types/i18n.type";
+import { I18nProvider, YokterProvider } from "yokter-kit";
 
 type Screen =
   | { name: "list" }
   | { name: "create" }
   | { name: "edit"; id: string };
 
-type Locale = "en" | "hi";
+type Locale = "en" | "DE-de";
 
 const dummyLocaleStrings = {
   en: {
     create: "Create",
     world: "world",
   },
-  hi: {
+  "DE-de": {
     create: "बनाएं",
     world: "संसार",
   },
 } as const;
 
 export default function App() {
-  const [locale, setLocale] = useState<Locale>("hi");
+  const [locale, setLocale] = useState<Locale>("DE-de");
   const [screen, setScreen] = useState<Screen>({ name: "list" });
 
   const i18nProvider: I18nProvider<Locale, keyof typeof dummyLocaleStrings.en> =

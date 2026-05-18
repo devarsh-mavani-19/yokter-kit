@@ -13,15 +13,16 @@ import { InputSize, InputState } from "../../types";
 import { useGetInputStyles } from "./use-get-input-styles";
 import { FormInputFieldProps } from "../../types";
 
-export type InputProps = FormInputFieldProps<string> & Omit<TextInputProps, "onChange"> & {
-  containerStyle?: ViewStyle;
-  size?: InputSize;
-  disabled?: boolean;
-  error?: boolean;
-  left?: ReactNode;
-  right?: ReactNode;
-  onTextInputChange?: ((e: TextInputChangeEvent) => void) | undefined
-};
+export type InputProps = FormInputFieldProps<string> &
+  Omit<TextInputProps, "onChange"> & {
+    containerStyle?: ViewStyle;
+    size?: InputSize;
+    disabled?: boolean;
+    error?: boolean;
+    left?: ReactNode;
+    right?: ReactNode;
+    onTextInputChange?: ((e: TextInputChangeEvent) => void) | undefined;
+  };
 
 export const Input = ({
   size = "md",
@@ -39,7 +40,7 @@ export const Input = ({
   ...textInputProps
 }: InputProps) => {
   const [inputState, setInputState] = useState<InputState>("default");
-  const isDisabled = disabled ?? !editable
+  const isDisabled = disabled ?? !editable;
 
   const { container, input, placeholder } = useGetInputStyles({
     size,
@@ -66,10 +67,10 @@ export const Input = ({
 
   const handleOnChange = useCallback(
     (value: string) => {
-      onChange?.(value)
+      onChange?.(value);
     },
-    [onChange]
-  )
+    [onChange],
+  );
 
   return (
     <View
@@ -79,18 +80,30 @@ export const Input = ({
           flexDirection: "row",
           alignItems: "center",
         },
-        containerStyle
+        containerStyle,
       ])}
     >
       {left}
       <TextInput
         {...textInputProps}
         editable={!isDisabled}
-        placeholderTextColor={textInputProps.placeholderTextColor ?? placeholder.color}
+        placeholderTextColor={
+          textInputProps.placeholderTextColor ?? placeholder.color
+        }
         onFocus={handleFocus}
         onBlur={handleBlur}
         textAlignVertical={textInputProps.textAlignVertical ?? "center"}
-        style={StyleSheet.flatten([input, { flex: 1, padding: 0, margin: 0, minHeight: 0, includeFontPadding: false }, style])}
+        style={StyleSheet.flatten([
+          input,
+          {
+            flex: 1,
+            padding: 0,
+            margin: 0,
+            minHeight: 0,
+            includeFontPadding: false,
+          },
+          style,
+        ])}
         onChange={onTextInputChange}
         onChangeText={handleOnChange}
       />

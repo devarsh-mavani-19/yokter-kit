@@ -15,7 +15,7 @@ import {
 import { OpenNotificationParams } from "../../notification/types/notification.type";
 import { HttpError } from "../../core/types/data.type";
 import { useYokterContext } from "../../core/context/yokter.context";
-import { useLocalize } from "../../i18n/hooks/use-localize";
+import { useTranslate } from "../../i18n/hooks/use-translate";
 import { sentenceCase } from "change-case-all";
 
 export type UseFormProps<
@@ -112,7 +112,7 @@ export const useForm = <
   TVariables
 > => {
   const { dataProvider } = useYokterContext();
-  const localize = useLocalize();
+  const translate = useTranslate();
 
   const fetchEditValues = useCallback(async (): Promise<
     TVariables | TInitialValues
@@ -150,9 +150,9 @@ export const useForm = <
             message: sentenceCase(
               error && typeof error === "object" && "message" in error
                 ? (error.message as string)
-                : localize("error.somethingWentWrong"),
+                : translate("error.somethingWentWrong"),
             ),
-            description: localize("error.errorLabel"),
+            description: translate("error.errorLabel"),
           });
         });
     }
@@ -172,16 +172,16 @@ export const useForm = <
               message: sentenceCase(
                 error && typeof error === "object" && "message" in error
                   ? (error.message as string)
-                  : localize("error.somethingWentWrong"),
+                  : translate("error.somethingWentWrong"),
               ),
-              description: localize("error.errorLabel"),
+              description: translate("error.errorLabel"),
             });
           });
       } else {
         resetForm(undefined, keepStateOptions);
       }
     },
-    [action, id, fetchEditValues, resetForm, open, localize],
+    [action, id, fetchEditValues, resetForm, open, translate],
   );
 
   const handleMutationSuccess = useCallback(

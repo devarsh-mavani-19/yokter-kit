@@ -7,7 +7,7 @@ import {
   Alert,
 } from "react-native";
 import { Post } from "../types";
-import { Button, Typography, useButtonStylesResolver, useDelete, useList, useLocalize } from "yokter-kit";
+import { Button, Typography, useButtonStylesResolver, useDelete, useList, useTranslate } from "yokter-kit";
 
 type Props = {
   onNavigateCreate: () => void;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
-  const localize = useLocalize();
+  const translate = useTranslate();
   const { data, isLoading, refetch } = useList<Post>({
     resource: "posts",
     pagination: { mode: "server", current: 1, pageSize: 10 },
@@ -88,7 +88,7 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
       <Button variant="outlined" onPress={() => onNavigateCreate()}>
-        {localize("create")}
+        {translate("create")}
       </Button>
     </View>
   );

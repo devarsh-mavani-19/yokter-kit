@@ -19,6 +19,29 @@ export type {
 } from "./components/typography/use-get-typography-styles";
 export { Input } from "./components/input";
 export type { InputProps } from "./components/input";
+export { InputNumber } from "./components/input-number";
+export type { InputNumberProps } from "./components/input-number";
+export { Checkbox } from "./components/checkbox";
+export type { CheckboxProps } from "./components/checkbox";
+export { useGetCheckboxStyles } from "./components/checkbox/use-get-checkbox-styles";
+export type {
+  UseGetCheckboxStylesProp,
+  UseGetCheckboxStylesReturn,
+} from "./components/checkbox/use-get-checkbox-styles";
+export { Radio, RadioGroup } from "./components/radio";
+export type { RadioProps, RadioGroupProps } from "./components/radio";
+export { useGetRadioStyles } from "./components/radio/use-get-radio-styles";
+export type {
+  UseGetRadioStylesProp,
+  UseGetRadioStylesReturn,
+} from "./components/radio/use-get-radio-styles";
+export { Switch } from "./components/switch";
+export type { SwitchProps } from "./components/switch";
+export { useGetSwitchStyles } from "./components/switch/use-get-switch-styles";
+export type {
+  UseGetSwitchStylesProp,
+  UseGetSwitchStylesReturn,
+} from "./components/switch/use-get-switch-styles";
 export { useGetInputStyles } from "./components/input/use-get-input-styles";
 export type {
   UseGetInputStylesProp,
@@ -66,6 +89,10 @@ export type {
   ButtonStateToStyle,
   InputSize,
   InputState,
+  CheckboxSize,
+  CheckboxState,
+  RadioSize,
+  SwitchSize,
   DeepPartial,
   FormInputFieldProps,
 } from "./types";

@@ -20,12 +20,11 @@ jest.mock("../../core/context/yokter.context", () => ({
   useYokterContext: () => ({
     dataProvider: mockDataProvider,
     notificationProvider: { open: mockOpen, close: jest.fn() },
-    i18nProvider: {
-      localize: (key: string) => key,
-      changeLocale: jest.fn(),
-      getLocale: jest.fn(),
-    },
   }),
+}));
+
+jest.mock("../../i18n/hooks/use-translate", () => ({
+  useTranslate: () => (key: string) => key,
 }));
 
 jest.mock("../../core/hooks/use-invalidate", () => ({

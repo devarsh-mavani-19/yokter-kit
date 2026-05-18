@@ -7,7 +7,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { View } from "react-native";
-import { useLocalize } from "../../../i18n/hooks/use-localize";
+import { useTranslate } from "../../../i18n/hooks/use-translate";
 import { FormInputFieldProps } from "../../types/form.type";
 
 export type FormItemProps<TFieldValues extends FieldValues> = {
@@ -29,7 +29,7 @@ export const FormItem = <TFieldValues extends FieldValues>({
   error,
 }: FormItemProps<TFieldValues>) => {
   const { control } = useFormContext<TFieldValues>();
-  const localize = useLocalize();
+  const translate = useTranslate();
   const fieldLabel = label ?? name;
 
   const rulesWithDefaults = useMemo(() => {
@@ -39,14 +39,14 @@ export const FormItem = <TFieldValues extends FieldValues>({
 
     // Only override with default message when user passes a simple value without a custom message
     if (rules.required === true) {
-      result.required = localize("error.required", { field: fieldLabel });
+      result.required = translate("error.required", { field: fieldLabel });
     }
     // string = user's custom message, object with message = user's custom message — leave as-is
 
     if (typeof rules.min === "number") {
       result.min = {
         value: rules.min,
-        message: localize("error.min", { field: fieldLabel, min: rules.min }),
+        message: translate("error.min", { field: fieldLabel, min: rules.min }),
       };
     }
     // object with value+message = user's custom message — leave as-is
@@ -54,14 +54,14 @@ export const FormItem = <TFieldValues extends FieldValues>({
     if (typeof rules.max === "number") {
       result.max = {
         value: rules.max,
-        message: localize("error.max", { field: fieldLabel, max: rules.max }),
+        message: translate("error.max", { field: fieldLabel, max: rules.max }),
       };
     }
 
     if (typeof rules.minLength === "number") {
       result.minLength = {
         value: rules.minLength,
-        message: localize("error.minLength", {
+        message: translate("error.minLength", {
           field: fieldLabel,
           minLength: rules.minLength,
         }),
@@ -71,7 +71,7 @@ export const FormItem = <TFieldValues extends FieldValues>({
     if (typeof rules.maxLength === "number") {
       result.maxLength = {
         value: rules.maxLength,
-        message: localize("error.maxLength", {
+        message: translate("error.maxLength", {
           field: fieldLabel,
           maxLength: rules.maxLength,
         }),
@@ -81,13 +81,13 @@ export const FormItem = <TFieldValues extends FieldValues>({
     if (rules.pattern instanceof RegExp) {
       result.pattern = {
         value: rules.pattern,
-        message: localize("error.pattern", { field: fieldLabel }),
+        message: translate("error.pattern", { field: fieldLabel }),
       };
     }
     // object with value+message = user's custom message — leave as-is
 
     return result;
-  }, [rules, fieldLabel, localize]);
+  }, [rules, fieldLabel, translate]);
 
   return (
     <Controller<TFieldValues, typeof name>

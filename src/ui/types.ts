@@ -109,7 +109,38 @@ export type ColorSemanticToken =
   | "inputBorderError"
   | "inputRingError"
   | "inputDisabledBackground"
-  | "inputDisabledForeground";
+  | "inputDisabledForeground"
+  // Checkbox
+  | "checkboxBackground"
+  | "checkboxForeground"
+  | "checkboxBorder"
+  | "checkboxCheckedBackground"
+  | "checkboxCheckedForeground"
+  | "checkboxCheckedBorder"
+  | "checkboxDisabledBackground"
+  | "checkboxDisabledForeground"
+  | "checkboxDisabledBorder"
+  | "checkboxLabel"
+  | "checkboxLabelDisabled"
+  // Radio
+  | "radioBorder"
+  | "radioBackground"
+  | "radioSelectedBorder"
+  | "radioSelectedDot"
+  | "radioDisabledBorder"
+  | "radioDisabledBackground"
+  | "radioDisabledDot"
+  | "radioLabel"
+  | "radioLabelDisabled"
+  // Switch
+  | "switchTrack"
+  | "switchTrackActive"
+  | "switchThumb"
+  | "switchThumbActive"
+  | "switchTrackDisabled"
+  | "switchThumbDisabled"
+  | "switchLabel"
+  | "switchLabelDisabled";
 
 export type TypographyVariant =
   | "display1"
@@ -152,6 +183,14 @@ export type ButtonState = "default" | "hover" | "press" | "disabled";
 export type InputSize = "sm" | "md" | "lg";
 
 export type InputState = "default" | "focused" | "disabled" | "error";
+
+export type CheckboxSize = "sm" | "md" | "lg";
+
+export type CheckboxState = "unchecked" | "checked" | "indeterminate";
+
+export type RadioSize = "sm" | "md" | "lg";
+
+export type SwitchSize = "sm" | "md" | "lg";
 
 export type ButtonStyle = {
   height: number;

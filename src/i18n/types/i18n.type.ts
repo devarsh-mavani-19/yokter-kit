@@ -18,3 +18,7 @@ export type I18nProvider<
   changeLocale: ChangeLocaleFunction<TLocale>;
   getLocale: GetLocaleFunction<TLocale>;
 };
+
+export type I18nContextType = {
+  i18nProvider?: I18nProvider;
+};
