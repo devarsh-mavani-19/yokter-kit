@@ -7,7 +7,16 @@ import {
   Alert,
 } from "react-native";
 import { Post } from "../types";
-import { Button, Typography, useButtonStylesResolver, useDelete, useList, useTranslate } from "yokter-kit";
+import {
+  Button,
+  Typography,
+  useButtonStylesResolver,
+  useDelete,
+  useList,
+  useTranslate,
+  PaginationControl,
+  useTable,
+} from "yokter-kit";
 
 type Props = {
   onNavigateCreate: () => void;
@@ -19,6 +28,11 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
   const { data, isLoading, refetch } = useList<Post>({
     resource: "posts",
     pagination: { mode: "server", current: 1, pageSize: 10 },
+    sorters: [{ field: "id", order: "desc" }],
+  });
+  const { tableProps, current, setCurrent, pageCount } = useTable<Post>({
+    resource: "posts",
+    pagination: { mode: "server" },
     sorters: [{ field: "id", order: "desc" }],
   });
 
@@ -64,9 +78,9 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
         <Typography variant="h3">Posts</Typography>
       </View>
       <FlatList
-        data={data?.data}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
+        data={tableProps.data}
+        keyExtractor={(item, index) => String(index)}
+        renderItem={({ item, index }) => (
           <View style={styles.item}>
             <TouchableOpacity
               style={styles.itemContent}
@@ -86,6 +100,14 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
           </View>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
+      <PaginationControl
+        {...tableProps}
+        currentPage={current}
+        onPageChange={(page) => {
+          setCurrent(page);
+        }}
+        totalPages={pageCount}
       />
       <Button variant="outlined" onPress={() => onNavigateCreate()}>
         {translate("create")}

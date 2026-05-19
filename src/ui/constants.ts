@@ -1,4 +1,4 @@
-import { ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, RadioSize, SegmentedControlSize, SliderSize, SwitchSize, TextAreaSize } from "./types";
+import { ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, PaginationSize, RadioSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize } from "./types";
 
 export const buttonSizeConfig: Record<ButtonSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number }> = {
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 6 },
@@ -58,4 +58,16 @@ export const segmentedControlSizeConfig: Record<SegmentedControlSize, { height: 
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 8, innerBorderRadius: 6, padding: 2 },
   md: { height: 40, paddingHorizontal: 16, fontSize: 15, borderRadius: 10, innerBorderRadius: 8, padding: 3 },
   lg: { height: 48, paddingHorizontal: 20, fontSize: 17, borderRadius: 12, innerBorderRadius: 10, padding: 4 },
+};
+
+export const tableSizeConfig: Record<TableSize, { cellPaddingHorizontal: number; cellPaddingVertical: number; headerFontSize: number; cellFontSize: number; borderRadius: number; checkboxSize: number }> = {
+  sm: { cellPaddingHorizontal: 10, cellPaddingVertical: 8, headerFontSize: 12, cellFontSize: 13, borderRadius: 6, checkboxSize: 16 },
+  md: { cellPaddingHorizontal: 12, cellPaddingVertical: 12, headerFontSize: 13, cellFontSize: 15, borderRadius: 8, checkboxSize: 20 },
+  lg: { cellPaddingHorizontal: 16, cellPaddingVertical: 16, headerFontSize: 15, cellFontSize: 17, borderRadius: 10, checkboxSize: 24 },
+};
+
+export const paginationSizeConfig: Record<PaginationSize, { inputHeight: number; inputMinWidth: number; fontSize: number; borderRadius: number; gap: number; arrowSize: number }> = {
+  sm: { inputHeight: 28, inputMinWidth: 36, fontSize: 13, borderRadius: 6, gap: 10, arrowSize: 28 },
+  md: { inputHeight: 36, inputMinWidth: 48, fontSize: 15, borderRadius: 8, gap: 14, arrowSize: 36 },
+  lg: { inputHeight: 44, inputMinWidth: 56, fontSize: 17, borderRadius: 10, gap: 16, arrowSize: 44 },
 };

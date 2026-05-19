@@ -172,7 +172,26 @@ export type ColorSemanticToken =
   | "segmentedItemForegroundActive"
   | "segmentedBorder"
   | "segmentedDisabledBackground"
-  | "segmentedDisabledForeground";
+  | "segmentedDisabledForeground"
+  // Table
+  | "tableHeaderBackground"
+  | "tableHeaderForeground"
+  | "tableRowBackground"
+  | "tableRowBackgroundAlt"
+  | "tableRowForeground"
+  | "tableRowBackgroundHover"
+  | "tableBorder"
+  | "tableSortIcon"
+  | "tableSortIconActive"
+  | "tableEmptyForeground"
+  | "tableDisabledForeground"
+  // Pagination
+  | "paginationForeground"
+  | "paginationInputBackground"
+  | "paginationInputBorder"
+  | "paginationInputForeground"
+  | "paginationArrowForeground"
+  | "paginationDisabledForeground";
 
 export type TypographyVariant =
   | "display1"
@@ -233,6 +252,10 @@ export type OtpInputSize = "sm" | "md" | "lg";
 export type SliderSize = "sm" | "md" | "lg";
 
 export type SegmentedControlSize = "sm" | "md" | "lg";
+
+export type PaginationSize = "sm" | "md" | "lg";
+
+export type TableSize = "sm" | "md" | "lg";
 
 export type ButtonStyle = {
   height: number;

@@ -100,4 +100,23 @@ export const darkModeColorSemantic: Record<ColorSemanticToken, string> = {
   segmentedBorder: "#3F3F46",
   segmentedDisabledBackground: "#27272A",
   segmentedDisabledForeground: "#52525B",
+  // Table
+  tableHeaderBackground: "#1F1F23",
+  tableHeaderForeground: "#A1A1AA",
+  tableRowBackground: "#09090B",
+  tableRowBackgroundAlt: "#18181B",
+  tableRowForeground: "#FAFAFA",
+  tableRowBackgroundHover: "#27272A",
+  tableBorder: "#27272A",
+  tableSortIcon: "#52525B",
+  tableSortIconActive: "#FAFAFA",
+  tableEmptyForeground: "#52525B",
+  tableDisabledForeground: "#52525B",
+  // Pagination
+  paginationForeground: "#A1A1AA",
+  paginationInputBackground: "#18181B",
+  paginationInputBorder: "#27272A",
+  paginationInputForeground: "#FAFAFA",
+  paginationArrowForeground: "#FAFAFA",
+  paginationDisabledForeground: "#52525B",
 };

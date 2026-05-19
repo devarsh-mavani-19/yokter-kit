@@ -72,6 +72,22 @@ export type {
   UseGetSegmentedControlStylesProp,
   UseGetSegmentedControlStylesReturn,
 } from "./components/segmented-control/use-get-segmented-control-styles";
+export { Table } from "./components/table";
+export type { TableProps, TableColumn, TableRowSelection } from "./components/table";
+export { useTable } from "./components/table/use-table";
+export type { UseTableProps, UseTableReturnType } from "./components/table/use-table";
+export { useGetTableStyles } from "./components/table/use-get-table-styles";
+export type {
+  UseGetTableStylesProp,
+  UseGetTableStylesReturn,
+} from "./components/table/use-get-table-styles";
+export { Pagination } from "./components/pagination";
+export type { PaginationProps } from "./components/pagination";
+export { useGetPaginationStyles } from "./components/pagination/use-get-pagination-styles";
+export type {
+  UseGetPaginationStylesProp,
+  UseGetPaginationStylesReturn,
+} from "./components/pagination/use-get-pagination-styles";
 export { useGetInputStyles } from "./components/input/use-get-input-styles";
 export type {
   UseGetInputStylesProp,
@@ -135,6 +151,8 @@ export type {
   OtpInputSize,
   SliderSize,
   SegmentedControlSize,
+  TableSize,
+  PaginationSize,
   DeepPartial,
   FormInputFieldProps,
 } from "./types";
