@@ -64,14 +64,6 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
     ]);
   };
 
-  if (isLoading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

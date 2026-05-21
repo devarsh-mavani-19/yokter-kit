@@ -11,7 +11,11 @@ import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { InputSize, InputState } from "../../types";
 import { useGetInputStyles } from "../input/use-get-input-styles";
 import { FormInputFieldProps } from "../../types";
-import { getDecimalSeparator, formatNumber, parseNumber } from "../../utils/decimal";
+import {
+  getDecimalSeparator,
+  formatNumber,
+  parseNumber,
+} from "../../utils/decimal";
 
 export type InputNumberProps = Omit<FormInputFieldProps<number>, "onChange"> & {
   onChange?: (value: number | undefined) => void;
@@ -46,10 +50,7 @@ export const InputNumber = ({
   const [inputState, setInputState] = useState<InputState>("default");
   const isDisabled = disabled ?? !editable;
 
-  const decimalSeparator = useMemo(
-    () => getDecimalSeparator(locale),
-    [locale],
-  );
+  const decimalSeparator = useMemo(() => getDecimalSeparator(locale), [locale]);
 
   const isFocusedRef = useRef(false);
   const [editingText, setEditingText] = useState<string | null>(null);
@@ -89,13 +90,8 @@ export const InputNumber = ({
 
       const currentText = editingText ?? "";
 
-      const separatorRegex = new RegExp(
-        `\\${decimalSeparator}`,
-        "g",
-      );
-      const separatorCount = (
-        currentText.match(separatorRegex) ?? []
-      ).length;
+      const separatorRegex = new RegExp(`\\${decimalSeparator}`, "g");
+      const separatorCount = (currentText.match(separatorRegex) ?? []).length;
 
       if (currentText.trim() === "") {
         onChange?.(undefined);
@@ -119,13 +115,7 @@ export const InputNumber = ({
       setEditingText(null);
       onBlur?.();
     },
-    [
-      isDisabled,
-      editingText,
-      decimalSeparator,
-      onChange,
-      onBlur,
-    ],
+    [isDisabled, editingText, decimalSeparator, onChange, onBlur],
   );
 
   const handleChangeText = useCallback((text: string) => {
@@ -156,7 +146,13 @@ export const InputNumber = ({
         textAlignVertical={textInputProps.textAlignVertical ?? "center"}
         style={StyleSheet.flatten([
           input,
-          { flex: 1, padding: 0, margin: 0, minHeight: 0, includeFontPadding: false },
+          {
+            flex: 1,
+            padding: 0,
+            margin: 0,
+            minHeight: 0,
+            includeFontPadding: false,
+          },
           style,
         ])}
         onChangeText={handleChangeText}
