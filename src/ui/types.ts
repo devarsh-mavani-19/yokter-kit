@@ -215,7 +215,16 @@ export type ColorSemanticToken =
   | "wheelInputForegroundActive"
   | "wheelInputForegroundFaded"
   | "wheelInputHighlightBorder"
-  | "wheelInputDisabledForeground";
+  | "wheelInputDisabledForeground"
+  // Modal
+  | "modalOverlay"
+  | "modalBackground"
+  | "modalForeground"
+  | "modalBorder"
+  | "modalHeaderForeground"
+  // Tooltip
+  | "tooltipBackground"
+  | "tooltipForeground";
 
 export type TypographyVariant =
   | "display1"
@@ -301,6 +310,10 @@ export type RateInputSize = "sm" | "md" | "lg";
 export type WheelInputSize = "sm" | "md" | "lg";
 
 export type TableSize = "sm" | "md" | "lg";
+
+export type ModalSize = "sm" | "md" | "lg";
+
+export type TooltipPlacement = "top" | "bottom" | "left" | "right";
 
 export type ButtonStyle = {
   height: number;

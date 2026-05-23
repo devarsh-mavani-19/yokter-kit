@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   View,
   FlatList,
@@ -16,6 +17,10 @@ import {
   useTranslate,
   PaginationControl,
   useTable,
+  Modal,
+  BottomModal,
+  Tooltip,
+  Accordion,
 } from "yokter-kit";
 
 type Props = {
@@ -25,6 +30,8 @@ type Props = {
 
 export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
   const translate = useTranslate();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [bottomModalVisible, setBottomModalVisible] = useState(false);
   const { data, isLoading, refetch } = useList<Post>({
     resource: "posts",
     pagination: { mode: "server", current: 1, pageSize: 10 },
@@ -101,9 +108,95 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
         }}
         totalPages={pageCount}
       />
-      <Button variant="outlined" onPress={() => onNavigateCreate()}>
-        {translate("create")}
-      </Button>
+      <View style={styles.demoRow}>
+        <Button
+          variant="outlined"
+          size="sm"
+          onPress={() => setModalVisible(true)}
+        >
+          Modal
+        </Button>
+        <Button
+          variant="outlined"
+          size="sm"
+          onPress={() => setBottomModalVisible(true)}
+        >
+          Bottom Modal
+        </Button>
+        <Tooltip content="This shows post info" placement="top">
+          <Typography variant="caption1" style={styles.tooltipTarget}>
+            Tap me
+          </Typography>
+        </Tooltip>
+        <Button variant="outlined" size="sm" onPress={() => onNavigateCreate()}>
+          {translate("create")}
+        </Button>
+      </View>
+
+      <Modal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title="Post Info"
+        footer={
+          <Button size="sm" onPress={() => setModalVisible(false)}>
+            Close
+          </Button>
+        }
+      >
+        <Typography variant="body2">
+          You have {tableProps.data?.length ?? 0} posts on this page.
+        </Typography>
+      </Modal>
+
+      <Accordion
+        items={[
+          {
+            key: "about",
+            title: "About Posts",
+            content: "Posts are fetched from a REST API with server-side pagination and sorting.",
+          },
+          {
+            key: "actions",
+            title: "Available Actions",
+            content: "You can create, edit, and delete posts. Tap a row to edit.",
+          },
+          {
+            key: "disabled",
+            title: "Disabled Item",
+            content: "This item cannot be expanded.",
+            disabled: true,
+          },
+        ]}
+      />
+
+      <BottomModal
+        visible={bottomModalVisible}
+        onClose={() => setBottomModalVisible(false)}
+        title="Actions"
+        footer={
+          <Button size="sm" onPress={() => setBottomModalVisible(false)}>
+            Done
+          </Button>
+        }
+      >
+        <View style={{ gap: 8 }}>
+          <Button
+            variant="outlined"
+            onPress={() => {
+              setBottomModalVisible(false);
+              onNavigateCreate();
+            }}
+          >
+            Create Post
+          </Button>
+          <Button
+            variant="outlined"
+            onPress={() => setBottomModalVisible(false)}
+          >
+            Cancel
+          </Button>
+        </View>
+      </BottomModal>
     </View>
   );
 }
@@ -147,4 +240,17 @@ const styles = StyleSheet.create({
   },
   deleteBtnText: { color: "#fff", fontSize: 12, fontWeight: "600" },
   separator: { height: 1, backgroundColor: "#eee" },
+  demoRow: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 12,
+    alignItems: "center",
+  },
+  tooltipTarget: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: "#E4E4E7",
+    borderRadius: 6,
+  },
 });

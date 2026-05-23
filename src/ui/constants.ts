@@ -1,4 +1,4 @@
-import { BadgeSize, ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, PaginationSize, RadioSize, RateInputSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize, WheelInputSize } from "./types";
+import { BadgeSize, ButtonSize, CheckboxSize, DropdownSize, InputSize, ModalSize, OtpInputSize, PaginationSize, RadioSize, RateInputSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize, WheelInputSize } from "./types";
 
 export const buttonSizeConfig: Record<ButtonSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number }> = {
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 6 },
@@ -88,4 +88,16 @@ export const wheelInputSizeConfig: Record<WheelInputSize, { itemHeight: number; 
   sm: { itemHeight: 36, fontSize: 14, fontSizeActive: 16 },
   md: { itemHeight: 40, fontSize: 16, fontSizeActive: 18 },
   lg: { itemHeight: 44, fontSize: 18, fontSizeActive: 20 },
+};
+
+export const modalSizeConfig: Record<ModalSize, { borderRadius: number; paddingHorizontal: number; paddingVertical: number; titleFontSize: number; closeBtnSize: number }> = {
+  sm: { borderRadius: 10, paddingHorizontal: 16, paddingVertical: 16, titleFontSize: 16, closeBtnSize: 20 },
+  md: { borderRadius: 12, paddingHorizontal: 20, paddingVertical: 20, titleFontSize: 18, closeBtnSize: 22 },
+  lg: { borderRadius: 14, paddingHorizontal: 24, paddingVertical: 24, titleFontSize: 20, closeBtnSize: 24 },
+};
+
+export const tooltipSizeConfig: Record<"sm" | "md" | "lg", { maxWidth: number; paddingHorizontal: number; paddingVertical: number; fontSize: number; borderRadius: number; arrowSize: number }> = {
+  sm: { maxWidth: 180, paddingHorizontal: 8, paddingVertical: 4, fontSize: 12, borderRadius: 4, arrowSize: 6 },
+  md: { maxWidth: 240, paddingHorizontal: 10, paddingVertical: 6, fontSize: 13, borderRadius: 6, arrowSize: 7 },
+  lg: { maxWidth: 300, paddingHorizontal: 12, paddingVertical: 8, fontSize: 14, borderRadius: 8, arrowSize: 8 },
 };

@@ -143,4 +143,13 @@ export const lightModeColorSemantic: Record<ColorSemanticToken, string> = {
   wheelInputForegroundFaded: "#D4D4D8",
   wheelInputHighlightBorder: "#E4E4E7",
   wheelInputDisabledForeground: "#D4D4D8",
+  // Modal
+  modalOverlay: "rgba(0, 0, 0, 0.5)",
+  modalBackground: "#FFFFFF",
+  modalForeground: "#09090B",
+  modalBorder: "#E4E4E7",
+  modalHeaderForeground: "#09090B",
+  // Tooltip
+  tooltipBackground: "#18181B",
+  tooltipForeground: "#FAFAFA",
 };

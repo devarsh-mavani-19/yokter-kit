@@ -143,4 +143,13 @@ export const darkModeColorSemantic: Record<ColorSemanticToken, string> = {
   wheelInputForegroundFaded: "#3F3F46",
   wheelInputHighlightBorder: "#27272A",
   wheelInputDisabledForeground: "#52525B",
+  // Modal
+  modalOverlay: "rgba(0, 0, 0, 0.7)",
+  modalBackground: "#18181B",
+  modalForeground: "#FAFAFA",
+  modalBorder: "#27272A",
+  modalHeaderForeground: "#FAFAFA",
+  // Tooltip
+  tooltipBackground: "#FAFAFA",
+  tooltipForeground: "#18181B",
 };

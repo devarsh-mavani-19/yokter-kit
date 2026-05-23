@@ -156,6 +156,34 @@ export type {
   UseGetRateInputStylesProp,
   UseGetRateInputStylesReturn,
 } from "./components/rate-input/use-get-rate-input-styles";
+export { Modal } from "./components/modal";
+export type { ModalProps } from "./components/modal";
+export { useGetModalStyles } from "./components/modal/use-get-modal-styles";
+export type {
+  UseGetModalStylesProp,
+  UseGetModalStylesReturn,
+} from "./components/modal/use-get-modal-styles";
+export { BottomModal } from "./components/bottom-modal";
+export type { BottomModalProps } from "./components/bottom-modal";
+export { useGetBottomModalStyles } from "./components/bottom-modal/use-get-bottom-modal-styles";
+export type {
+  UseGetBottomModalStylesProp,
+  UseGetBottomModalStylesReturn,
+} from "./components/bottom-modal/use-get-bottom-modal-styles";
+export { Tooltip } from "./components/tooltip";
+export type { TooltipProps } from "./components/tooltip";
+export { useGetTooltipStyles } from "./components/tooltip/use-get-tooltip-styles";
+export type {
+  UseGetTooltipStylesProp,
+  UseGetTooltipStylesReturn,
+} from "./components/tooltip/use-get-tooltip-styles";
+export { Accordion } from "./components/accordion";
+export type { AccordionProps, AccordionItem } from "./components/accordion";
+export { useGetAccordionStyles } from "./components/accordion/use-get-accordion-styles";
+export type {
+  UseGetAccordionStylesProp,
+  UseGetAccordionStylesReturn,
+} from "./components/accordion/use-get-accordion-styles";
 
 // Theme creation
 export { createTheme, defaultTheme } from "./createTheme";
@@ -217,6 +245,8 @@ export type {
   RateInputSize,
   WheelInputSize,
   PaginationSize,
+  ModalSize,
+  TooltipPlacement,
   DeepPartial,
   FormInputFieldProps,
 } from "./types";
