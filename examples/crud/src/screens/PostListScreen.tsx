@@ -1,16 +1,27 @@
+import { useState } from "react";
 import {
   View,
-  Text,
   FlatList,
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { useList } from "../../../../src/hooks/use-list";
-import { useDelete } from "../../../../src/hooks/use-delete";
 import { Post } from "../types";
-import { useLocalize } from "../../../../src/hooks/use-localize";
+import {
+  Button,
+  Typography,
+  useButtonStylesResolver,
+  useDelete,
+  useList,
+  useTranslate,
+  PaginationControl,
+  useTable,
+  Modal,
+  BottomModal,
+  Tooltip,
+  Accordion,
+} from "yokter-kit";
 
 type Props = {
   onNavigateCreate: () => void;
@@ -18,10 +29,17 @@ type Props = {
 };
 
 export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
-  const localize = useLocalize();
+  const translate = useTranslate();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [bottomModalVisible, setBottomModalVisible] = useState(false);
   const { data, isLoading, refetch } = useList<Post>({
     resource: "posts",
     pagination: { mode: "server", current: 1, pageSize: 10 },
+    sorters: [{ field: "id", order: "desc" }],
+  });
+  const { tableProps, current, setCurrent, pageCount } = useTable<Post>({
+    resource: "posts",
+    pagination: { mode: "server" },
     sorters: [{ field: "id", order: "desc" }],
   });
 
@@ -53,44 +71,132 @@ export function PostListScreen({ onNavigateCreate, onNavigateEdit }: Props) {
     ]);
   };
 
-  if (isLoading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Posts</Text>
-        <TouchableOpacity style={styles.createBtn} onPress={onNavigateCreate}>
-          <Text style={styles.createBtnText}>+ {localize("create")}</Text>
-        </TouchableOpacity>
+        <Typography variant="h3">Posts</Typography>
       </View>
       <FlatList
-        data={data?.data}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
+        data={tableProps.data}
+        keyExtractor={(item, index) => String(index)}
+        renderItem={({ item, index }) => (
           <View style={styles.item}>
             <TouchableOpacity
               style={styles.itemContent}
               onPress={() => onNavigateEdit(String(item.id))}
             >
-              <Text style={styles.itemTitle}>{item.title}</Text>
-              <Text style={styles.itemStatus}>{item.status}</Text>
+              <Typography variant="caption1">{item.title}</Typography>
+              <Typography variant="caption2">{item.status}</Typography>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteBtn}
+            <Button
+              size="sm"
+              variant="solid"
+              danger
               onPress={() => handleDelete(String(item.id))}
             >
-              <Text style={styles.deleteBtnText}>Delete</Text>
-            </TouchableOpacity>
+              Delete
+            </Button>
           </View>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
+      <PaginationControl
+        {...tableProps}
+        currentPage={current}
+        onPageChange={(page) => {
+          setCurrent(page);
+        }}
+        totalPages={pageCount}
+      />
+      <View style={styles.demoRow}>
+        <Button
+          variant="outlined"
+          size="sm"
+          onPress={() => setModalVisible(true)}
+        >
+          Modal
+        </Button>
+        <Button
+          variant="outlined"
+          size="sm"
+          onPress={() => setBottomModalVisible(true)}
+        >
+          Bottom Modal
+        </Button>
+        <Tooltip content="This shows post info" placement="top">
+          <Typography variant="caption1" style={styles.tooltipTarget}>
+            Tap me
+          </Typography>
+        </Tooltip>
+        <Button variant="outlined" size="sm" onPress={() => onNavigateCreate()}>
+          {translate("create")}
+        </Button>
+      </View>
+
+      <Modal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title="Post Info"
+        footer={
+          <Button size="sm" onPress={() => setModalVisible(false)}>
+            Close
+          </Button>
+        }
+      >
+        <Typography variant="body2">
+          You have {tableProps.data?.length ?? 0} posts on this page.
+        </Typography>
+      </Modal>
+
+      <Accordion
+        items={[
+          {
+            key: "about",
+            title: "About Posts",
+            content: "Posts are fetched from a REST API with server-side pagination and sorting.",
+          },
+          {
+            key: "actions",
+            title: "Available Actions",
+            content: "You can create, edit, and delete posts. Tap a row to edit.",
+          },
+          {
+            key: "disabled",
+            title: "Disabled Item",
+            content: "This item cannot be expanded.",
+            disabled: true,
+          },
+        ]}
+      />
+
+      <BottomModal
+        visible={bottomModalVisible}
+        onClose={() => setBottomModalVisible(false)}
+        title="Actions"
+        footer={
+          <Button size="sm" onPress={() => setBottomModalVisible(false)}>
+            Done
+          </Button>
+        }
+      >
+        <View style={{ gap: 8 }}>
+          <Button
+            variant="outlined"
+            onPress={() => {
+              setBottomModalVisible(false);
+              onNavigateCreate();
+            }}
+          >
+            Create Post
+          </Button>
+          <Button
+            variant="outlined"
+            onPress={() => setBottomModalVisible(false)}
+          >
+            Cancel
+          </Button>
+        </View>
+      </BottomModal>
     </View>
   );
 }
@@ -111,7 +217,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 6,
   },
-  createBtnText: { color: "#fff", fontWeight: "600" },
+  createBtnText: { color: "#007AFF", fontWeight: "600" },
   item: {
     paddingVertical: 12,
     flexDirection: "row",
@@ -134,4 +240,17 @@ const styles = StyleSheet.create({
   },
   deleteBtnText: { color: "#fff", fontSize: 12, fontWeight: "600" },
   separator: { height: 1, backgroundColor: "#eee" },
+  demoRow: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 12,
+    alignItems: "center",
+  },
+  tooltipTarget: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: "#E4E4E7",
+    borderRadius: 6,
+  },
 });

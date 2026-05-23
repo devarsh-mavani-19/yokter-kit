@@ -4,12 +4,35 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator,
 } from "react-native";
-import { useForm } from "../../../../src/hooks/use-form";
-import { Form } from "../../../../src/components/form";
-import { FormItem, FormInputFieldProps } from "../../../../src/components/form-item";
 import { Post, PostFormValues } from "../types";
+import {
+  AutoComplete,
+  AutoCompleteOption,
+  Button,
+  Checkbox,
+  Dropdown,
+  Form,
+  FormInputFieldProps,
+  FormItem,
+  Input,
+  InputNumber,
+  OtpInput,
+  RadioGroup,
+  SegmentedControl,
+  Slider,
+  Switch,
+  TextArea,
+  Typography,
+  useForm,
+  useGetLocale,
+  RateInput,
+  Badge,
+  DateTimePicker,
+  WheelInput,
+  DateTimeRangePicker,
+} from "yokter-kit";
+import { useMemo, useState } from "react";
 
 type Props = {
   action: "create" | "edit";
@@ -33,7 +56,11 @@ function FormTextInput({
   return (
     <View>
       <TextInput
-        style={[styles.input, multiline && styles.textArea, errorMessage && styles.inputError]}
+        style={[
+          styles.input,
+          multiline && styles.textArea,
+          errorMessage && styles.inputError,
+        ]}
         value={value ?? ""}
         onChangeText={onChange}
         onBlur={onBlur}
@@ -46,10 +73,7 @@ function FormTextInput({
   );
 }
 
-function StatusPicker({
-  value,
-  onChange,
-}: FormInputFieldProps<string>) {
+function StatusPicker({ value, onChange }: FormInputFieldProps<string>) {
   return (
     <View style={styles.statusRow}>
       {(["draft", "published", "rejected"] as const).map((s) => (
@@ -58,7 +82,12 @@ function StatusPicker({
           style={[styles.statusBtn, value === s && styles.statusBtnActive]}
           onPress={() => onChange?.(s)}
         >
-          <Text style={[styles.statusBtnText, value === s && styles.statusBtnTextActive]}>
+          <Text
+            style={[
+              styles.statusBtnText,
+              value === s && styles.statusBtnTextActive,
+            ]}
+          >
             {s}
           </Text>
         </TouchableOpacity>
@@ -68,6 +97,50 @@ function StatusPicker({
 }
 
 export function PostFormScreen({ action, id, onBack }: Props) {
+  const getLocale = useGetLocale();
+  const [fruit, setFruit] = useState<string>();
+  const [otp, setOtp] = useState<string>();
+  const [sliderVal, setSliderVal] = useState<number>();
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [radio2, setRadio2] = useState<"apple" | "banana" | undefined>();
+  const [radio, setRadio] =
+    useState<
+      (
+        | "apple"
+        | "banana"
+        | "cherry"
+        | "mango"
+        | "grape"
+        | "orange"
+        | "papaya"
+        | "pineapple"
+        | "watermelon"
+        | "kiwi"
+        | "strawberry"
+        | "blueberry"
+      )[]
+    >();
+
+  const [rate, setRate] = useState(0);
+
+  const fruitOptions: AutoCompleteOption[] = useMemo(() => {
+    if (!fruit) return [];
+    return [
+      {
+        label: `${fruit}a`,
+        value: `${fruit}a`,
+      },
+      {
+        label: `${fruit}ab`,
+        value: `${fruit}ab`,
+      },
+      {
+        label: `${fruit}abc`,
+        value: `${fruit}abc`,
+      },
+    ];
+  }, [fruit]);
+
   const { form, saveButtonProps } = useForm<Post, PostFormValues>({
     action,
     resource: "posts",
@@ -86,57 +159,155 @@ export function PostFormScreen({ action, id, onBack }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack}>
-          <Text style={styles.backBtn}>← Back</Text>
+          <Typography variant="h5">← Back</Typography>
         </TouchableOpacity>
         <Text style={styles.title}>
           {action === "create" ? "Create Post" : "Edit Post"}
         </Text>
       </View>
+      <Dropdown<
+        | "apple"
+        | "banana"
+        | "cherry"
+        | "mango"
+        | "grape"
+        | "orange"
+        | "papaya"
+        | "pineapple"
+        | "watermelon"
+        | "kiwi"
+        | "strawberry"
+        | "blueberry"
+      >
+        clearable
+        mode="multi"
+        options={[
+          { label: "Apple", value: "apple" },
+          { label: "Banana", value: "banana" },
+          { label: "Cherry", value: "cherry" },
+          { label: "Mango", value: "mango" },
+          { label: "Grape", value: "grape" },
+          { label: "Orange", value: "orange" },
+          { label: "Papaya", value: "papaya" },
+          { label: "Pineapple", value: "pineapple" },
+          { label: "Watermelon", value: "watermelon" },
+          { label: "Kiwi", value: "kiwi" },
+          { label: "Strawberry", value: "strawberry" },
+          { label: "Blueberry", value: "blueberry" },
+        ]}
+        value={radio}
+        onChange={(value) => setRadio(value)}
+      />
 
       <Form form={form}>
         <View style={styles.field}>
-          <Text style={styles.label}>Title</Text>
+          <FormItem name="datepicker">
+            <DateTimePicker mode="datetime" />
+          </FormItem>
+        </View>
+        <View style={styles.field}>
+          <Typography style={styles.label}>Title</Typography>
           <FormItem<PostFormValues>
             name="title"
             label="Title"
             rules={{ required: true }}
           >
-            <FormTextInput placeholder="Enter title" />
+            <InputNumber placeholder="Enter Number" locale={getLocale()} />
+            {/* <Input placeholder="Enter title" /> */}
           </FormItem>
         </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Content</Text>
+        <Checkbox value={isFocus} onChange={() => setIsFocus(!isFocus)} />
+        <View style={{ margin: 8 }}>
+          <OtpInput value={otp} onChange={(value) => setOtp(value)} />
+        </View>
+        <View style={{ margin: 8 }}>
+          <Slider
+            haptic
+            step={5}
+            value={sliderVal}
+            onChange={(val) => setSliderVal(val)}
+          />
+        </View>
+        <RadioGroup
+          options={[
+            { label: "Apple", value: "apple" },
+            { label: "Banana", value: "banana" },
+          ]}
+          value={radio2}
+          onChange={(value) => setRadio2(value)}
+        />
+        {/* <View style={styles.field}>
+          <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>
             name="content"
             label="Content"
             rules={{ required: true }}
           >
-            <FormTextInput placeholder="Enter content" multiline numberOfLines={4} />
+            <TextArea placeholder="Enter content" />
           </FormItem>
         </View>
 
+        <AutoComplete
+          options={fruitOptions}
+          onChange={(value) => setFruit(value)}
+          value={fruit}
+        /> */}
+        {/* 
         <View style={styles.field}>
-          <Text style={styles.label}>Status</Text>
+          <Typography style={styles.label}>Status</Typography>
           <FormItem<PostFormValues> name="status" label="Status">
-            <StatusPicker />
+            <SegmentedControl<"draft" | "published" | "rejected">
+              options={[
+                { label: "Draft", value: "draft" },
+                { label: "Published", value: "published" },
+                { label: "Rejected", value: "rejected" },
+              ]}
+            />
+          </FormItem>
+        </View>
+        <View style={styles.field}>
+          <FormItem name="rate">
+            <RateInput />
+          </FormItem>
+        </View> */}
+        <View style={styles.field}>
+          <FormItem name="status" label="Status">
+            <WheelInput
+              options={[
+                { value: "draft", label: "Draft" },
+                { value: "published", label: "Published" },
+                { value: "rejected", label: "Rejected" },
+              ]}
+            />
+          </FormItem>
+        </View>
+        <View style={styles.field}>
+          <FormItem name="dateRangePickerLuxon">
+            <DateTimeRangePicker mode="time" locale="de" />
           </FormItem>
         </View>
       </Form>
-
-      <TouchableOpacity
-        style={[styles.submitBtn, saveButtonProps.disabled && styles.submitBtnDisabled]}
-        onPress={saveButtonProps.onPress}
-        disabled={saveButtonProps.disabled}
+      <View
+        style={[
+          styles.field,
+          {
+            flexDirection: "row",
+            gap: 8,
+            flexWrap: "wrap",
+          },
+        ]}
       >
-        {saveButtonProps.loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.submitBtnText}>
-            {action === "create" ? "Create" : "Save"}
-          </Text>
-        )}
-      </TouchableOpacity>
+        <Badge variant="default">Default</Badge>
+        <Badge variant="destructive">Destructive</Badge>
+        <Badge variant="outline">Outline</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+      </View>
+
+      <Button {...saveButtonProps}>
+        {action === "create" ? "Create" : "Save"}
+      </Button>
     </View>
   );
 }

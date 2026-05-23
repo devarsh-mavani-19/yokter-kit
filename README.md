@@ -269,6 +269,10 @@ yarn start
 2. **UI Library Support** - Expanding the component library with more form controls, layout primitives, and data display components
 3. **Supabase Support** - First-party Supabase data provider for seamless integration with Supabase backends
 
+## Acknowledgements
+
+- [react-autosize-textarea](https://github.com/buildo/react-autosize-textarea) by [buildo](https://github.com/buildo) — the TextArea auto-grow approach is inspired by their implementation.
+
 ## License
 
 MIT
