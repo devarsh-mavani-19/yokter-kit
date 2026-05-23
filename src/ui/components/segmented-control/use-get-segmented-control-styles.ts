@@ -3,6 +3,8 @@ import { SegmentedControlSize } from "../../types";
 import { useTheme } from "../../hooks";
 import { segmentedControlSizeConfig } from "../../constants";
 
+export type ItemPosition = "first" | "middle" | "last" | "only";
+
 export type UseGetSegmentedControlStylesProp = {
   size?: SegmentedControlSize;
   disabled?: boolean;
@@ -11,7 +13,7 @@ export type UseGetSegmentedControlStylesProp = {
 export type UseGetSegmentedControlStylesReturn = {
   container: ViewStyle;
   item: ViewStyle;
-  itemActive: ViewStyle;
+  getItemActiveStyle: (position: ItemPosition) => ViewStyle;
   itemText: TextStyle;
   itemTextActive: TextStyle;
 };
@@ -28,28 +30,37 @@ export const useGetSegmentedControlStyles = ({
       : themeConfig.darkModeColorSemantic;
 
   const dims = segmentedControlSizeConfig[size];
+  const r = dims.borderRadius;
 
   const container: ViewStyle = {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: dims.padding * 2 + 4,
-    ...(disabled ? { opacity: 0.6 } : {}),
+    alignItems: "center",
+    ...(disabled ? { opacity: 0.5 } : {}),
   };
 
   const item: ViewStyle = {
     height: dims.height,
-    borderRadius: dims.borderRadius,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: dims.paddingHorizontal,
-    backgroundColor: colors.segmentedBackground,
-    borderWidth: 1,
-    borderColor: colors.segmentedBorder,
   };
 
-  const itemActive: ViewStyle = {
-    backgroundColor: colors.segmentedItemBackgroundActive,
-    borderColor: colors.segmentedItemForegroundActive,
+  const getItemActiveStyle = (position: ItemPosition): ViewStyle => {
+    const base: ViewStyle = {
+      backgroundColor: colors.segmentedItemBackgroundActive,
+    };
+
+    switch (position) {
+      case "first":
+        return { ...base, borderTopLeftRadius: r, borderBottomLeftRadius: r };
+      case "last":
+        return { ...base, borderTopRightRadius: r, borderBottomRightRadius: r };
+      case "only":
+        return { ...base, borderRadius: r };
+      case "middle":
+      default:
+        return base;
+    }
   };
 
   const itemText: TextStyle = {
@@ -63,5 +74,5 @@ export const useGetSegmentedControlStyles = ({
     fontWeight: "600",
   };
 
-  return { container, item, itemActive, itemText, itemTextActive };
+  return { container, item, getItemActiveStyle, itemText, itemTextActive };
 };

@@ -191,7 +191,31 @@ export type ColorSemanticToken =
   | "paginationInputBorder"
   | "paginationInputForeground"
   | "paginationArrowForeground"
-  | "paginationDisabledForeground";
+  | "paginationDisabledForeground"
+  // Badge
+  | "badgeDefaultBackground"
+  | "badgeDefaultForeground"
+  | "badgeDefaultBorder"
+  | "badgeSecondaryBackground"
+  | "badgeSecondaryForeground"
+  | "badgeSecondaryBorder"
+  | "badgeDestructiveBackground"
+  | "badgeDestructiveForeground"
+  | "badgeDestructiveBorder"
+  | "badgeOutlineBackground"
+  | "badgeOutlineForeground"
+  | "badgeOutlineBorder"
+  // RateInput
+  | "rateInputFill"
+  | "rateInputBase"
+  | "rateInputHover"
+  | "rateInputDisabled"
+  // WheelInput
+  | "wheelInputForeground"
+  | "wheelInputForegroundActive"
+  | "wheelInputForegroundFaded"
+  | "wheelInputHighlightBorder"
+  | "wheelInputDisabledForeground";
 
 export type TypographyVariant =
   | "display1"
@@ -255,6 +279,27 @@ export type SegmentedControlSize = "sm" | "md" | "lg";
 
 export type PaginationSize = "sm" | "md" | "lg";
 
+export type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
+
+export type BadgeSize = "sm" | "md" | "lg";
+
+export type DateTimePickerSize = "sm" | "md" | "lg";
+
+export type DateTimePickerMode = "date" | "time" | "datetime";
+
+export type DateTimeRangePickerSize = "sm" | "md" | "lg";
+
+export type DateTimeRangePickerMode = "date" | "time" | "datetime";
+
+export type DateTimeRangeValue = {
+  start?: import("luxon").DateTime;
+  end?: import("luxon").DateTime;
+};
+
+export type RateInputSize = "sm" | "md" | "lg";
+
+export type WheelInputSize = "sm" | "md" | "lg";
+
 export type TableSize = "sm" | "md" | "lg";
 
 export type ButtonStyle = {
@@ -295,6 +340,5 @@ export type ThemeConfig = {
   spacing: Record<SpacingSize, number>;
   radius: Record<RadiusSize, number>;
   shadow: Record<ShadowType, ShadowStyle>;
-  zIndex: Record<ZIndexType, number>;
   typography: Record<TypographyVariant, TypographyVariantStyle>;
 };

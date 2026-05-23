@@ -1,4 +1,4 @@
-import { ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, PaginationSize, RadioSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize } from "./types";
+import { BadgeSize, ButtonSize, CheckboxSize, DropdownSize, InputSize, OtpInputSize, PaginationSize, RadioSize, RateInputSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize, WheelInputSize } from "./types";
 
 export const buttonSizeConfig: Record<ButtonSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number }> = {
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 6 },
@@ -66,8 +66,26 @@ export const tableSizeConfig: Record<TableSize, { cellPaddingHorizontal: number;
   lg: { cellPaddingHorizontal: 16, cellPaddingVertical: 16, headerFontSize: 15, cellFontSize: 17, borderRadius: 10, checkboxSize: 24 },
 };
 
+export const badgeSizeConfig: Record<BadgeSize, { paddingHorizontal: number; paddingVertical: number; fontSize: number; borderRadius: number }> = {
+  sm: { paddingHorizontal: 6, paddingVertical: 1, fontSize: 11, borderRadius: 9999 },
+  md: { paddingHorizontal: 10, paddingVertical: 2, fontSize: 12, borderRadius: 9999 },
+  lg: { paddingHorizontal: 14, paddingVertical: 4, fontSize: 14, borderRadius: 9999 },
+};
+
+export const rateInputSizeConfig: Record<RateInputSize, { symbolSize: number; spacing: number; fontSize: number }> = {
+  sm: { symbolSize: 28, spacing: 6, fontSize: 26 },
+  md: { symbolSize: 40, spacing: 8, fontSize: 38 },
+  lg: { symbolSize: 52, spacing: 10, fontSize: 50 },
+};
+
 export const paginationSizeConfig: Record<PaginationSize, { inputHeight: number; inputMinWidth: number; fontSize: number; borderRadius: number; gap: number; arrowSize: number }> = {
   sm: { inputHeight: 28, inputMinWidth: 36, fontSize: 13, borderRadius: 6, gap: 10, arrowSize: 28 },
   md: { inputHeight: 36, inputMinWidth: 48, fontSize: 15, borderRadius: 8, gap: 14, arrowSize: 36 },
   lg: { inputHeight: 44, inputMinWidth: 56, fontSize: 17, borderRadius: 10, gap: 16, arrowSize: 44 },
+};
+
+export const wheelInputSizeConfig: Record<WheelInputSize, { itemHeight: number; fontSize: number; fontSizeActive: number }> = {
+  sm: { itemHeight: 36, fontSize: 14, fontSizeActive: 16 },
+  md: { itemHeight: 40, fontSize: 16, fontSizeActive: 18 },
+  lg: { itemHeight: 44, fontSize: 18, fontSizeActive: 20 },
 };

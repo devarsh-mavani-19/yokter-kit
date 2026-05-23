@@ -75,6 +75,16 @@ export {
   useGetTableStyles,
   Pagination as PaginationControl,
   useGetPaginationStyles,
+  DateTimePicker,
+  useGetDateTimePickerStyles,
+  DateTimeRangePicker,
+  useGetDateTimeRangePickerStyles,
+  WheelInput,
+  useGetWheelInputStyles,
+  Badge,
+  useGetBadgeStyles,
+  RateInput,
+  useGetRateInputStyles,
   TextArea,
   useGetTextAreaStyles,
   useGetInputStyles,
@@ -85,7 +95,6 @@ export {
   spacing,
   radius,
   shadows,
-  zIndex,
   lineHeights,
   letterSpacings,
   typography,
@@ -178,15 +187,54 @@ export type {
   UseTableReturnType,
   UseGetTableStylesProp,
   UseGetTableStylesReturn,
+  DateTimePickerProps,
+  DateTimePickerLabels,
+  DateTimePickerSize,
+  DateTimePickerMode,
+  UseGetDateTimePickerStylesProp,
+  UseGetDateTimePickerStylesReturn,
+  DateTimeRangePickerProps,
+  DateTimeRangePickerLabels,
+  DateTimeRangePickerSize,
+  DateTimeRangePickerMode,
+  DateTimeRangeValue,
+  UseGetDateTimeRangePickerStylesProp,
+  UseGetDateTimeRangePickerStylesReturn,
+  WheelInputProps,
+  WheelInputOption,
+  WheelInputSize,
+  UseGetWheelInputStylesProp,
+  UseGetWheelInputStylesReturn,
+  BadgeProps,
+  BadgeVariant,
+  BadgeSize,
+  UseGetBadgeStylesProp,
+  UseGetBadgeStylesReturn,
+  RateInputProps,
+  RateInputSize,
+  UseGetRateInputStylesProp,
+  UseGetRateInputStylesReturn,
   FormInputFieldProps,
 } from "./ui";
 
 // Form
 export { Form, FormItem, useForm } from "./form";
-export type { FormProps, FormItemProps, UseFormProps, UseFormReturn } from "./form";
+export type {
+  FormProps,
+  FormItemProps,
+  UseFormProps,
+  UseFormReturn,
+} from "./form";
 
 // I18n
-export { I18nContext, I18nContextProvider, useTranslate, useSetLocale, useGetLocale, useTranslation } from "./i18n";
+export {
+  I18nContext,
+  I18nContextProvider,
+  useTranslate,
+  useSetLocale,
+  useGetLocale,
+  useTranslation,
+} from "./i18n";
 export type {
   I18nProvider,
   I18nContextType,

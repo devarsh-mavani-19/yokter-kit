@@ -26,6 +26,11 @@ import {
   Typography,
   useForm,
   useGetLocale,
+  RateInput,
+  Badge,
+  DateTimePicker,
+  WheelInput,
+  DateTimeRangePicker,
 } from "yokter-kit";
 import { useMemo, useState } from "react";
 
@@ -116,6 +121,8 @@ export function PostFormScreen({ action, id, onBack }: Props) {
       )[]
     >();
 
+  const [rate, setRate] = useState(0);
+
   const fruitOptions: AutoCompleteOption[] = useMemo(() => {
     if (!fruit) return [];
     return [
@@ -191,7 +198,13 @@ export function PostFormScreen({ action, id, onBack }: Props) {
         value={radio}
         onChange={(value) => setRadio(value)}
       />
+
       <Form form={form}>
+        <View style={styles.field}>
+          <FormItem name="datepicker">
+            <DateTimePicker mode="datetime" />
+          </FormItem>
+        </View>
         <View style={styles.field}>
           <Typography style={styles.label}>Title</Typography>
           <FormItem<PostFormValues>
@@ -223,7 +236,7 @@ export function PostFormScreen({ action, id, onBack }: Props) {
           value={radio2}
           onChange={(value) => setRadio2(value)}
         />
-        <View style={styles.field}>
+        {/* <View style={styles.field}>
           <Typography style={styles.label}>Content</Typography>
           <FormItem<PostFormValues>
             name="content"
@@ -238,8 +251,8 @@ export function PostFormScreen({ action, id, onBack }: Props) {
           options={fruitOptions}
           onChange={(value) => setFruit(value)}
           value={fruit}
-        />
-
+        /> */}
+        {/* 
         <View style={styles.field}>
           <Typography style={styles.label}>Status</Typography>
           <FormItem<PostFormValues> name="status" label="Status">
@@ -252,7 +265,45 @@ export function PostFormScreen({ action, id, onBack }: Props) {
             />
           </FormItem>
         </View>
+        <View style={styles.field}>
+          <FormItem name="rate">
+            <RateInput />
+          </FormItem>
+        </View> */}
+        <View style={styles.field}>
+          <FormItem name="status" label="Status">
+            <WheelInput
+              options={[
+                { value: "draft", label: "Draft" },
+                { value: "published", label: "Published" },
+                { value: "rejected", label: "Rejected" },
+              ]}
+            />
+          </FormItem>
+        </View>
+        <View style={styles.field}>
+          <FormItem name="dateRangePickerLuxon">
+            <DateTimeRangePicker mode="time" locale="de" />
+          </FormItem>
+        </View>
       </Form>
+      <View
+        style={[
+          styles.field,
+          {
+            flexDirection: "row",
+            gap: 8,
+            flexWrap: "wrap",
+          },
+        ]}
+      >
+        <Badge variant="default">Default</Badge>
+        <Badge variant="destructive">Destructive</Badge>
+        <Badge variant="outline">Outline</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+      </View>
 
       <Button {...saveButtonProps}>
         {action === "create" ? "Create" : "Save"}

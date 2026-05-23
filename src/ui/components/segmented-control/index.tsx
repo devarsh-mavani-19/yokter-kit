@@ -3,7 +3,7 @@ import { ReactNode, useCallback } from "react";
 import { SegmentedControlSize } from "../../types";
 import { FormInputFieldProps } from "../../types";
 import { Typography } from "../typography";
-import { useGetSegmentedControlStyles } from "./use-get-segmented-control-styles";
+import { useGetSegmentedControlStyles, ItemPosition } from "./use-get-segmented-control-styles";
 
 export type SegmentedControlOption<T> = {
   value: T;
@@ -39,6 +39,13 @@ function isMultiMode<T>(
   props: SegmentedControlProps<T>,
 ): props is SegmentedControlMultiProps<T> {
   return props.mode === "multi";
+}
+
+function getItemPosition(index: number, total: number): ItemPosition {
+  if (total === 1) return "only";
+  if (index === 0) return "first";
+  if (index === total - 1) return "last";
+  return "middle";
 }
 
 export const SegmentedControl = <T,>(props: SegmentedControlProps<T>) => {
@@ -83,9 +90,10 @@ export const SegmentedControl = <T,>(props: SegmentedControlProps<T>) => {
 
   return (
     <View style={StyleSheet.flatten([styles.container, containerStyle])}>
-      {options.map((option) => {
+      {options.map((option, index) => {
         const isActive = selectedSet.has(option.value);
         const isItemDisabled = disabled ?? option.disabled;
+        const position = getItemPosition(index, options.length);
 
         return (
           <Pressable
@@ -94,7 +102,7 @@ export const SegmentedControl = <T,>(props: SegmentedControlProps<T>) => {
             disabled={isItemDisabled}
             style={StyleSheet.flatten([
               styles.item,
-              isActive && styles.itemActive,
+              isActive && styles.getItemActiveStyle(position),
               isItemDisabled && !disabled && { opacity: 0.4 },
             ])}
           >
