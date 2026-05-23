@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { HttpError, ValidationErrors } from "../../../src/types/data.type";
+import { ValidationErrors } from "yokter-kit";
+import { HttpError } from "yokter-kit";
 
 const API_URL = "https://api.fake-rest.refine.dev";
 
