@@ -3,6 +3,15 @@ export { ThemeProvider } from "./context/theme.context";
 
 // Hooks
 export { useTheme } from "./hooks";
+export { useUpload } from "./hooks";
+export type {
+  FileAsset,
+  UploadProgressEvent,
+  UploadResult,
+  UploadFn,
+  UseUploadProps,
+  UseUploadReturn,
+} from "./hooks";
 export { useGetButtonStyles as useButtonStylesResolver } from "./components/button/use-get-button-theme";
 export type {
   UseGetButtonStylesProp as UseButtonStylesProp,
@@ -177,6 +186,19 @@ export type {
   UseGetTooltipStylesProp,
   UseGetTooltipStylesReturn,
 } from "./components/tooltip/use-get-tooltip-styles";
+export { FileInput, FileListInput } from "./components/file-input";
+export type {
+  FileInputProps,
+  FileListInputProps,
+  FileInputValue,
+  FileInputPickerType,
+  PickFileFn,
+} from "./components/file-input";
+export { useGetFileInputStyles } from "./components/file-input/use-get-file-input-styles";
+export type {
+  UseGetFileInputStylesProp,
+  UseGetFileInputStylesReturn,
+} from "./components/file-input/use-get-file-input-styles";
 export { Accordion } from "./components/accordion";
 export type { AccordionProps, AccordionItem } from "./components/accordion";
 export { useGetAccordionStyles } from "./components/accordion/use-get-accordion-styles";
@@ -245,6 +267,7 @@ export type {
   RateInputSize,
   WheelInputSize,
   PaginationSize,
+  FileInputSize,
   ModalSize,
   TooltipPlacement,
   DeepPartial,

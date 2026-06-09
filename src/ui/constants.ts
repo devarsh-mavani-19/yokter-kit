@@ -1,4 +1,4 @@
-import { BadgeSize, ButtonSize, CheckboxSize, DropdownSize, InputSize, ModalSize, OtpInputSize, PaginationSize, RadioSize, RateInputSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize, WheelInputSize } from "./types";
+import { BadgeSize, ButtonSize, CheckboxSize, DropdownSize, FileInputSize, InputSize, ModalSize, OtpInputSize, PaginationSize, RadioSize, RateInputSize, SegmentedControlSize, SliderSize, SwitchSize, TableSize, TextAreaSize, WheelInputSize } from "./types";
 
 export const buttonSizeConfig: Record<ButtonSize, { height: number; paddingHorizontal: number; fontSize: number; borderRadius: number }> = {
   sm: { height: 32, paddingHorizontal: 12, fontSize: 13, borderRadius: 6 },
@@ -94,6 +94,12 @@ export const modalSizeConfig: Record<ModalSize, { borderRadius: number; paddingH
   sm: { borderRadius: 10, paddingHorizontal: 16, paddingVertical: 16, titleFontSize: 16, closeBtnSize: 20 },
   md: { borderRadius: 12, paddingHorizontal: 20, paddingVertical: 20, titleFontSize: 18, closeBtnSize: 22 },
   lg: { borderRadius: 14, paddingHorizontal: 24, paddingVertical: 24, titleFontSize: 20, closeBtnSize: 24 },
+};
+
+export const fileInputSizeConfig: Record<FileInputSize, { borderRadius: number; padding: number; titleFontSize: number; descriptionFontSize: number; itemHeight: number; itemBorderRadius: number; itemPaddingHorizontal: number; itemFontSize: number; progressHeight: number }> = {
+  sm: { borderRadius: 8, padding: 16, titleFontSize: 14, descriptionFontSize: 11, itemHeight: 36, itemBorderRadius: 6, itemPaddingHorizontal: 10, itemFontSize: 12, progressHeight: 3 },
+  md: { borderRadius: 10, padding: 24, titleFontSize: 16, descriptionFontSize: 12, itemHeight: 44, itemBorderRadius: 8, itemPaddingHorizontal: 12, itemFontSize: 14, progressHeight: 4 },
+  lg: { borderRadius: 12, padding: 32, titleFontSize: 18, descriptionFontSize: 14, itemHeight: 52, itemBorderRadius: 10, itemPaddingHorizontal: 16, itemFontSize: 16, progressHeight: 5 },
 };
 
 export const tooltipSizeConfig: Record<"sm" | "md" | "lg", { maxWidth: number; paddingHorizontal: number; paddingVertical: number; fontSize: number; borderRadius: number; arrowSize: number }> = {

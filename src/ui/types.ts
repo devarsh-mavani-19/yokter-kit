@@ -224,7 +224,22 @@ export type ColorSemanticToken =
   | "modalHeaderForeground"
   // Tooltip
   | "tooltipBackground"
-  | "tooltipForeground";
+  | "tooltipForeground"
+  // FileInput
+  | "fileInputBackground"
+  | "fileInputBorder"
+  | "fileInputBorderDashed"
+  | "fileInputForeground"
+  | "fileInputForegroundSub"
+  | "fileInputDisabledBackground"
+  | "fileInputDisabledForeground"
+  | "fileInputItemBackground"
+  | "fileInputItemForeground"
+  | "fileInputItemBorder"
+  | "fileInputProgressTrack"
+  | "fileInputProgressFill"
+  | "fileInputErrorForeground"
+  | "fileInputRemoveForeground";
 
 export type TypographyVariant =
   | "display1"
@@ -312,6 +327,8 @@ export type WheelInputSize = "sm" | "md" | "lg";
 export type TableSize = "sm" | "md" | "lg";
 
 export type ModalSize = "sm" | "md" | "lg";
+
+export type FileInputSize = "sm" | "md" | "lg";
 
 export type TooltipPlacement = "top" | "bottom" | "left" | "right";
 
