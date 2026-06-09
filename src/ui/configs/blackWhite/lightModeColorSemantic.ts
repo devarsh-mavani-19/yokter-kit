@@ -152,4 +152,19 @@ export const lightModeColorSemantic: Record<ColorSemanticToken, string> = {
   // Tooltip
   tooltipBackground: "#18181B",
   tooltipForeground: "#FAFAFA",
+  // FileInput
+  fileInputBackground: "#FFFFFF",            // background
+  fileInputBorder: "#E4E4E7",               // border
+  fileInputBorderDashed: "#E4E4E7",         // input
+  fileInputForeground: "#09090B",           // foreground
+  fileInputForegroundSub: "#71717A",        // muted-foreground
+  fileInputDisabledBackground: "#F4F4F5",   // muted
+  fileInputDisabledForeground: "#A1A1AA",   // muted-foreground (faded)
+  fileInputItemBackground: "#F4F4F5",       // muted
+  fileInputItemForeground: "#09090B",       // foreground
+  fileInputItemBorder: "#E4E4E7",           // border
+  fileInputProgressTrack: "#E4E4E7",        // secondary (border)
+  fileInputProgressFill: "#18181B",         // primary
+  fileInputErrorForeground: "#EF4444",      // destructive
+  fileInputRemoveForeground: "#71717A",     // muted-foreground
 };

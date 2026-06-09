@@ -31,8 +31,15 @@ import {
   DateTimePicker,
   WheelInput,
   DateTimeRangePicker,
+  FileInput,
+  FileListInput,
+  FileInputValue,
+  PickFileFn,
+  UploadFn,
 } from "yokter-kit";
-import { useMemo, useState } from "react";
+import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
+import { useCallback, useMemo, useState } from "react";
 
 type Props = {
   action: "create" | "edit";
@@ -122,6 +129,69 @@ export function PostFormScreen({ action, id, onBack }: Props) {
     >();
 
   const [rate, setRate] = useState(0);
+  const [singleFile, setSingleFile] = useState<FileInputValue | undefined>();
+  const [multiFiles, setMultiFiles] = useState<FileInputValue[] | undefined>();
+
+  // Pick files using expo-document-picker for documents, expo-image-picker for images
+  const pickDocumentsFn: PickFileFn = useCallback(async ({ multiple }) => {
+    const result = await DocumentPicker.getDocumentAsync({
+      multiple: multiple ?? false,
+    });
+    if (result.canceled) return undefined;
+    return result.assets.map((asset) => ({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name: asset.name,
+      uri: asset.uri,
+      mimeType: asset.mimeType ?? undefined,
+      size: asset.size ?? undefined,
+    }));
+  }, []);
+
+  const pickImagesFn: PickFileFn = useCallback(async ({ multiple }) => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsMultipleSelection: multiple ?? false,
+    });
+    if (result.canceled) return undefined;
+    return result.assets.map((asset) => ({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      name:
+        asset.fileName ??
+        asset.uri.split("/").pop() ??
+        `image-${Date.now()}.jpg`,
+      uri: asset.uri,
+      mimeType: asset.mimeType ?? undefined,
+      size: asset.fileSize ?? undefined,
+    }));
+  }, []);
+
+  // Simulated upload — ticks progress over 2s (no real endpoint needed for demo)
+  const simulatedUploadFn: UploadFn = useCallback(
+    async (asset, { onProgress }) => {
+      const abortController = new AbortController();
+      await new Promise<void>((resolve, reject) => {
+        let progress = 0;
+        const interval = setInterval(() => {
+          if (abortController.signal.aborted) {
+            clearInterval(interval);
+            reject(new Error("Upload aborted"));
+            return;
+          }
+          progress += 0.1;
+          onProgress({ progress: Math.min(progress, 1) });
+          if (progress >= 1) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 200);
+      });
+      return {
+        data: { url: `https://example.com/uploads/${asset.name}` },
+        abortController,
+      };
+    },
+    [],
+  );
 
   const fruitOptions: AutoCompleteOption[] = useMemo(() => {
     if (!fruit) return [];
@@ -287,6 +357,41 @@ export function PostFormScreen({ action, id, onBack }: Props) {
           </FormItem>
         </View>
       </Form>
+      <View style={styles.field}>
+        <Typography style={styles.label}>Single File Upload</Typography>
+        <FileInput
+          uploadFn={simulatedUploadFn}
+          pickFileFn={pickImagesFn}
+          title="Upload an image"
+          description="Pick from your photo library"
+          buttonText="Choose image"
+          accept={["image/jpeg", "image/png"]}
+          maxFileSizeBytes={5 * 1024 * 1024}
+          value={singleFile}
+          onChange={setSingleFile}
+          onFileSizeExceeded={() => console.log("File too large")}
+          onInvalidFormat={() => console.log("Invalid format")}
+        />
+      </View>
+
+      <View style={styles.field}>
+        <Typography style={styles.label}>Multi File Upload (max 3)</Typography>
+        <FileListInput
+          uploadFn={simulatedUploadFn}
+          pickFileFn={pickDocumentsFn}
+          title="Upload documents"
+          description="Select up to 3 files"
+          buttonText="Choose files"
+          max={3}
+          maxFileSizeBytes={10 * 1024 * 1024}
+          value={multiFiles}
+          onChange={setMultiFiles}
+          onMaxCountExceeded={(max) =>
+            console.log(`Maximum ${max} files allowed`)
+          }
+        />
+      </View>
+
       <View
         style={[
           styles.field,
